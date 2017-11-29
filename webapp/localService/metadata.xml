@@ -1,0 +1,177 @@
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="179522488b234a930ee08dfc" xml:lang="en" sap:schema-version="0000" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityContainer Name="179522488b234a930ee08dfc_Entities" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="RegionSet" EntityType="179522488b234a930ee08dfc.Region" sap:creatable="true" sap:updatable="true" sap:deletable="true"/>
+                <AssociationSet Name="RegionVilleVille" Association="179522488b234a930ee08dfc.RegionVilleVille" sap:creatable="true" sap:updatable="true" sap:deletable="true">
+                    <End EntitySet="RegionSet" Role="FromRole_RegionVilleVille"/>
+                    <End EntitySet="VilleSet" Role="ToRole_RegionVilleVille"/>
+                </AssociationSet>
+                <EntitySet Name="VilleSet" EntityType="179522488b234a930ee08dfc.Ville" sap:creatable="true" sap:updatable="true" sap:deletable="true"/>
+                <AssociationSet Name="VilleBatimentBatiment" Association="179522488b234a930ee08dfc.VilleBatimentBatiment" sap:creatable="true" sap:updatable="true" sap:deletable="true">
+                    <End EntitySet="VilleSet" Role="FromRole_VilleBatimentBatiment"/>
+                    <End EntitySet="BatimentSet" Role="ToRole_VilleBatimentBatiment"/>
+                </AssociationSet>
+                <EntitySet Name="BatimentSet" EntityType="179522488b234a930ee08dfc.Batiment" sap:creatable="true" sap:updatable="true" sap:deletable="true"/>
+                <AssociationSet Name="BatimentEtageEtage" Association="179522488b234a930ee08dfc.BatimentEtageEtage" sap:creatable="true" sap:updatable="true" sap:deletable="true">
+                    <End EntitySet="BatimentSet" Role="FromRole_BatimentEtageEtage"/>
+                    <End EntitySet="EtageSet" Role="ToRole_BatimentEtageEtage"/>
+                </AssociationSet>
+                <EntitySet Name="EtageSet" EntityType="179522488b234a930ee08dfc.Etage" sap:creatable="true" sap:updatable="true" sap:deletable="true"/>
+                <AssociationSet Name="EtageCelluleCellule" Association="179522488b234a930ee08dfc.EtageCelluleCellule" sap:creatable="true" sap:updatable="true" sap:deletable="true">
+                    <End EntitySet="EtageSet" Role="FromRole_EtageCelluleCellule"/>
+                    <End EntitySet="CelluleSet" Role="ToRole_EtageCelluleCellule"/>
+                </AssociationSet>
+                <EntitySet Name="CelluleSet" EntityType="179522488b234a930ee08dfc.Cellule" sap:creatable="true" sap:updatable="true" sap:deletable="true"/>
+                <AssociationSet Name="CelluleRelationNameBien" Association="179522488b234a930ee08dfc.CelluleRelationNameBien" sap:creatable="true" sap:updatable="true" sap:deletable="true">
+                    <End EntitySet="CelluleSet" Role="FromRole_CelluleRelationNameBien"/>
+                    <End EntitySet="BienSet" Role="ToRole_CelluleRelationNameBien"/>
+                </AssociationSet>
+                <EntitySet Name="BienSet" EntityType="179522488b234a930ee08dfc.Bien" sap:creatable="true" sap:updatable="true" sap:deletable="true"/>
+                <AssociationSet Name="BienRelationNameOrdinateur" Association="179522488b234a930ee08dfc.BienRelationNameOrdinateur" sap:creatable="true" sap:updatable="true" sap:deletable="true">
+                    <End EntitySet="BienSet" Role="FromRole_BienRelationNameOrdinateur"/>
+                    <End EntitySet="OrdinateurSet" Role="ToRole_BienRelationNameOrdinateur"/>
+                </AssociationSet>
+                <EntitySet Name="OrdinateurSet" EntityType="179522488b234a930ee08dfc.Ordinateur" sap:creatable="true" sap:updatable="true" sap:deletable="true"/>
+            </EntityContainer>
+            <EntityType Name="Region">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="ID"/>
+                <Property Name="name" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="name"/>
+                <NavigationProperty Name="Ville" Relationship="179522488b234a930ee08dfc.RegionVilleVille" FromRole="FromRole_RegionVilleVille" ToRole="ToRole_RegionVilleVille"/>
+            </EntityType>
+            <Association Name="RegionVilleVille">
+                <End Type="179522488b234a930ee08dfc.Region" Multiplicity="1" Role="FromRole_RegionVilleVille"/>
+                <End Type="179522488b234a930ee08dfc.Ville" Multiplicity="*" Role="ToRole_RegionVilleVille"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_RegionVilleVille">
+                        <PropertyRef Name="ID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_RegionVilleVille">
+                        <PropertyRef Name="___FK_e6825f7bb609f0a90edb5cc7"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityType Name="Ville">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="ID"/>
+                <Property Name="___FK_e6825f7bb609f0a90edb5cc7" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="___FK_e6825f7bb609f0a90edb5cc7"/>
+                <Property Name="name" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="DefaultName"/>
+                <NavigationProperty Name="Batiment" Relationship="179522488b234a930ee08dfc.VilleBatimentBatiment" FromRole="FromRole_VilleBatimentBatiment" ToRole="ToRole_VilleBatimentBatiment"/>
+            </EntityType>
+            <Association Name="VilleBatimentBatiment">
+                <End Type="179522488b234a930ee08dfc.Ville" Multiplicity="1" Role="FromRole_VilleBatimentBatiment"/>
+                <End Type="179522488b234a930ee08dfc.Batiment" Multiplicity="*" Role="ToRole_VilleBatimentBatiment"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_VilleBatimentBatiment">
+                        <PropertyRef Name="ID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_VilleBatimentBatiment">
+                        <PropertyRef Name="___FK_f380ada59dfaf7ba0edb5ccb"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityType Name="Batiment">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="ID"/>
+                <Property Name="___FK_f380ada59dfaf7ba0edb5ccb" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="___FK_f380ada59dfaf7ba0edb5ccb"/>
+                <Property Name="name" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="name"/>
+                <NavigationProperty Name="Etage" Relationship="179522488b234a930ee08dfc.BatimentEtageEtage" FromRole="FromRole_BatimentEtageEtage" ToRole="ToRole_BatimentEtageEtage"/>
+            </EntityType>
+            <Association Name="BatimentEtageEtage">
+                <End Type="179522488b234a930ee08dfc.Batiment" Multiplicity="1" Role="FromRole_BatimentEtageEtage"/>
+                <End Type="179522488b234a930ee08dfc.Etage" Multiplicity="*" Role="ToRole_BatimentEtageEtage"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_BatimentEtageEtage">
+                        <PropertyRef Name="ID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_BatimentEtageEtage">
+                        <PropertyRef Name="___FK_9cea7cddd07fb0500edb5cce"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityType Name="Etage">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="ID"/>
+                <Property Name="___FK_9cea7cddd07fb0500edb5cce" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="___FK_9cea7cddd07fb0500edb5cce"/>
+                <Property Name="name" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="name"/>
+                <NavigationProperty Name="Cellule" Relationship="179522488b234a930ee08dfc.EtageCelluleCellule" FromRole="FromRole_EtageCelluleCellule" ToRole="ToRole_EtageCelluleCellule"/>
+            </EntityType>
+            <Association Name="EtageCelluleCellule">
+                <End Type="179522488b234a930ee08dfc.Etage" Multiplicity="1" Role="FromRole_EtageCelluleCellule"/>
+                <End Type="179522488b234a930ee08dfc.Cellule" Multiplicity="*" Role="ToRole_EtageCelluleCellule"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_EtageCelluleCellule">
+                        <PropertyRef Name="ID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_EtageCelluleCellule">
+                        <PropertyRef Name="___FK_1ccf0a9138f095490edb5cd0"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityType Name="Cellule">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="ID"/>
+                <Property Name="___FK_1ccf0a9138f095490edb5cd0" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="___FK_1ccf0a9138f095490edb5cd0"/>
+                <Property Name="name" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="name"/>
+                <Property Name="immo" Type="Edm.Double" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="immo"/>
+                <Property Name="state" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="state"/>
+                <NavigationProperty Name="RelationName" Relationship="179522488b234a930ee08dfc.CelluleRelationNameBien" FromRole="FromRole_CelluleRelationNameBien" ToRole="ToRole_CelluleRelationNameBien"/>
+            </EntityType>
+            <Association Name="CelluleRelationNameBien">
+                <End Type="179522488b234a930ee08dfc.Cellule" Multiplicity="1" Role="FromRole_CelluleRelationNameBien"/>
+                <End Type="179522488b234a930ee08dfc.Bien" Multiplicity="*" Role="ToRole_CelluleRelationNameBien"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_CelluleRelationNameBien">
+                        <PropertyRef Name="ID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_CelluleRelationNameBien">
+                        <PropertyRef Name="___FK_700f241842a1d08d0ee0a7e3"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityType Name="Bien">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="ID"/>
+                <Property Name="image" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="image"/>
+                <Property Name="name" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="name"/>
+                <Property Name="number" Type="Edm.Double" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="number"/>
+                <Property Name="___FK_700f241842a1d08d0ee0a7e3" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="___FK_700f241842a1d08d0ee0a7e3"/>
+                <NavigationProperty Name="RelationName" Relationship="179522488b234a930ee08dfc.BienRelationNameOrdinateur" FromRole="FromRole_BienRelationNameOrdinateur" ToRole="ToRole_BienRelationNameOrdinateur"/>
+            </EntityType>
+            <Association Name="BienRelationNameOrdinateur">
+                <End Type="179522488b234a930ee08dfc.Bien" Multiplicity="1" Role="FromRole_BienRelationNameOrdinateur"/>
+                <End Type="179522488b234a930ee08dfc.Ordinateur" Multiplicity="*" Role="ToRole_BienRelationNameOrdinateur"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_BienRelationNameOrdinateur">
+                        <PropertyRef Name="ID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_BienRelationNameOrdinateur">
+                        <PropertyRef Name="___FK_d0697a2ecbc4df260ee0b5e4"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityType Name="Ordinateur">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="ID"/>
+                <Property Name="name" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="name"/>
+                <Property Name="number" Type="Edm.Double" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="number"/>
+                <Property Name="___FK_d0697a2ecbc4df260ee0b5e4" Type="Edm.String" sap:creatable="true" sap:updatable="true" sap:deletable="true" sap:label="___FK_d0697a2ecbc4df260ee0b5e4"/>
+            </EntityType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

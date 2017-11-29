@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="UTF-8">
+
+        <title>Build Pôle Emploi EPF</title>
+
+		<script id="sap-ui-bootstrap"
+			src="/resources/sap-ui-core.js"
+            data-sap-ui-libs="sap.m,sap.ui.core"
+			data-sap-ui-theme="sap_bluecrystal"
+			
+            data-sap-ui-xx-supportedLanguages="en"
+            data-sap-ui-xx-bindingSyntax="complex"
+			data-sap-ui-compatVersion="edge" 
+			data-sap-ui-resourceroots='{"com.sap.build.standard.buildPoleEmploiEpf":"../","sap.iot.dor":"/build/uilibraries/BRIDGE-CUSTOM-1.0.0/sap/iot/dor"}'>
+		</script>
+
+     
+
+		<script>
+			sap.ui.getCore().attachInit(function() {
+				jQuery.sap.require("sap.ui.fl.FakeLrepConnector");
+				sap.ui.fl.FakeLrepConnector.enableFakeConnector("fakeLRep.json");
+				new sap.m.Shell({
+                    app: new sap.ui.core.ComponentContainer({
+                        height : "100%",
+                        name : "com.sap.build.standard.buildPoleEmploiEpf"
+                    })
+                }).placeAt("app");
+
+			});
+		</script>
+	</head>
+
+	<body class="sapUiBody" id="app" rootUiArea >
+	</body>
+
+</html>
