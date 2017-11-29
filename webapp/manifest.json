@@ -43,9 +43,7 @@
 			"tablet": true,
 			"phone": true
 		},
-		"supportedThemes": [
-			"sap_bluecrystal"
-		]
+		"supportedThemes": ["sap_bluecrystal"]
 	},
 	"sap.ui5": {
 		"_version": "1.1.0",
@@ -96,9 +94,7 @@
 				"clearTarget": false,
 				"controlAggregation": "pages",
 				"bypassed": {
-					"target": [
-						"Scan"
-					]
+					"target": ["Connexion"]
 				}
 			},
 			"targets": {
@@ -173,85 +169,51 @@
 					"transition": "slide"
 				}
 			},
-			"routes": [
-				{
-					"pattern": "Scan/:context:",
-					"name": "Scan",
-					"target": [
-						"Scan"
-					]
-				},
-				{
-					"pattern": "",
-					"name": "default",
-					"target": [
-						"Scan"
-					]
-				},
-				{
-					"pattern": "Connexion/:context:",
-					"name": "Connexion",
-					"target": [
-						"Connexion"
-					]
-				},
-				{
-					"pattern": "Regions/:context:",
-					"name": "Regions",
-					"target": [
-						"Regions"
-					]
-				},
-				{
-					"pattern": "Villes/:context:",
-					"name": "Villes",
-					"target": [
-						"Villes"
-					]
-				},
-				{
-					"pattern": "Batiments/:context:",
-					"name": "Batiments",
-					"target": [
-						"Batiments"
-					]
-				},
-				{
-					"pattern": "Accueil/:context:",
-					"name": "Accueil",
-					"target": [
-						"Accueil"
-					]
-				},
-				{
-					"pattern": "Bureau/:context:",
-					"name": "Bureau",
-					"target": [
-						"Bureau"
-					]
-				},
-				{
-					"pattern": "DetailInventaire/:context:",
-					"name": "DetailInventaire",
-					"target": [
-						"DetailInventaire"
-					]
-				},
-				{
-					"pattern": "Famille/:context:",
-					"name": "Famille",
-					"target": [
-						"Famille"
-					]
-				},
-				{
-					"pattern": "CreationBien/:context:",
-					"name": "CreationBien",
-					"target": [
-						"CreationBien"
-					]
-				}
-			]
+			"routes": [{
+				"pattern": "Connexion/:context:",
+				"name": "Connexion",
+				"target": ["Connexion"]
+			}, {
+				"pattern": "Scan/:context:",
+				"name": "Scan",
+				"target": ["Scan"]
+			}, {
+				"pattern": "",
+				"name": "default",
+				"target": ["Connexion"]
+			}, {
+				"pattern": "Regions/:context:",
+				"name": "Regions",
+				"target": ["Regions"]
+			}, {
+				"pattern": "Villes/:context:",
+				"name": "Villes",
+				"target": ["Villes"]
+			}, {
+				"pattern": "Batiments/:context:",
+				"name": "Batiments",
+				"target": ["Batiments"]
+			}, {
+				"pattern": "Accueil/:context:",
+				"name": "Accueil",
+				"target": ["Accueil"]
+			}, {
+				"pattern": "Bureau/:context:",
+				"name": "Bureau",
+				"target": ["Bureau"]
+			}, {
+				"pattern": "DetailInventaire/:context:",
+				"name": "DetailInventaire",
+				"target": ["DetailInventaire"]
+			}, {
+				"pattern": "Famille/:context:",
+				"name": "Famille",
+				"target": ["Famille"]
+			}, {
+				"pattern": "CreationBien/:context:",
+				"name": "CreationBien",
+				"target": ["CreationBien"]
+			}]
 		}
 	},
 	"sap.platform.hcp": {

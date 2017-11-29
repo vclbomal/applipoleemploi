@@ -1,5 +1,8 @@
 {
   "dataBinding": {
+  	"/webapp/view/Connexion.view.xml": {
+      "entitySet": ""
+    },
     "/webapp/view/Scan.view.xml": {
       "entitySet": ""
     },
@@ -7,9 +10,6 @@
       "entitySet": ""
     },
     "/webapp/view/Popover1.view.xml": {
-      "entitySet": ""
-    },
-    "/webapp/view/Connexion.view.xml": {
       "entitySet": ""
     },
     "/webapp/view/Regions.view.xml": {
@@ -54,6 +54,6 @@
   "hcpdeploy": {
     "account": "p1942913203trial",
     "name": "applipoleemploi",
-    "lastVersionWeTriedToDeploy": "1.0.3"
+    "lastVersionWeTriedToDeploy": "1.0.5"
   }
 }
