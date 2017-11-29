@@ -1,52 +1,60 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.standard.buildPoleEmploiEpf.controller.Connexion" xmlns:m="sap.m">
-    <m:Page showHeader="true" title="Connexion" showFooter="false" showNavButton="false">
-        <m:content>
-            <m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-            <m:HBox alignItems="Center" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                <m:items>
-                    <m:VBox alignItems="Center" direction="Column" fitContainer="false" width="50%" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                        <m:items>
-                            <m:Image src="/webapp/resources/logo_pole_emploi.png" height="auto" width="100%" densityAware="false"/>
-                        </m:items>
-                        <m:layoutData/>
-                    </m:VBox>
-                </m:items>
-                <m:layoutData/>
-            </m:HBox>
-            <m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-            <m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                <m:items>
-                    <m:VBox alignItems="Center" direction="Column" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                        <m:items>
-                            <m:Input placeholder="Identifiant" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0"/>
-                            <m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-                            <m:Input placeholder="Mot de passe" type="Password" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0"/>
-                            <m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-                            <m:Button text="" type="Accept" icon="sap-icon://unlocked" iconFirst="true" width="200px" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPress4"/>
-                        </m:items>
-                        <m:layoutData/>
-                    </m:VBox>
-                </m:items>
-                <m:layoutData/>
-            </m:HBox>
-        </m:content>
-        <m:footer>
-            <m:Bar design="Auto">
-                <m:contentLeft>
-                    <m:Button text="Evaluer" type="Default" icon="sap-icon://travel-request" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
-                </m:contentLeft>
-                <m:contentMiddle>
-                    <m:Button text="Clôturer" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
-                </m:contentMiddle>
-                <m:contentRight>
-                    <m:Button text="Bilan" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
-                </m:contentRight>
-            </m:Bar>
-        </m:footer>
-        <m:headerContent>
-            <m:Image src="/webapp/resources/logo_pole_emploi.png" height="35px" width="auto" densityAware="false"/>
-        </m:headerContent>
-        <m:subHeader/>
-        <m:customHeader/>
-    </m:Page>
+	<m:Page showHeader="true" title="Connexion" showFooter="false" showNavButton="false">
+		<m:content>
+			<m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+			<m:HBox alignItems="Center" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+				visible="true" displayInline="false">
+				<m:items>
+					<m:VBox alignItems="Center" direction="Column" fitContainer="false" width="50%" height="auto" justifyContent="Center" renderType="Div"
+						visible="true" displayInline="false">
+						<m:items>
+							<m:Image src="/webapp/resources/logo_pole_emploi.png" height="auto" width="100%" densityAware="false"/>
+						</m:items>
+						<m:layoutData/>
+					</m:VBox>
+				</m:items>
+				<m:layoutData/>
+			</m:HBox>
+			<m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+			<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+				visible="true" displayInline="false">
+				<m:items>
+					<m:VBox alignItems="Center" direction="Column" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+						visible="true" displayInline="false">
+						<m:items>
+							<m:Input placeholder="Identifiant" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false"
+								maxLength="0"/>
+							<m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+							<m:Input placeholder="Mot de passe" type="Password" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false"
+								maxLength="0"/>
+							<m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+							<m:Button text="" type="Accept" icon="sap-icon://unlocked" iconFirst="true" width="200px" enabled="true" visible="true"
+								iconDensityAware="false" press="_onButtonPress3"/>
+						</m:items>
+						<m:layoutData/>
+					</m:VBox>
+				</m:items>
+				<m:layoutData/>
+			</m:HBox>
+		</m:content>
+		<m:footer>
+			<m:Bar design="Auto">
+				<m:contentLeft>
+					<m:Button text="Evaluer" type="Default" icon="sap-icon://travel-request" iconFirst="true" width="auto" enabled="true" visible="true"
+						iconDensityAware="false"/>
+				</m:contentLeft>
+				<m:contentMiddle>
+					<m:Button text="Clôturer" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+				</m:contentMiddle>
+				<m:contentRight>
+					<m:Button text="Bilan" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+				</m:contentRight>
+			</m:Bar>
+		</m:footer>
+		<m:headerContent>
+			<m:Image src="/webapp/resources/logo_pole_emploi.png" height="35px" width="auto" densityAware="false"/>
+		</m:headerContent>
+		<m:subHeader/>
+		<m:customHeader/>
+	</m:Page>
 </mvc:View>

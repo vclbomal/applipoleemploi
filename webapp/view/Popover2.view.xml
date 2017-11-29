@@ -1,34 +1,38 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.standard.buildPoleEmploiEpf.controller.Popover2" xmlns:m="sap.m">
-    <m:Popover bounce="false" contentHeight="250px" contentWidth="350px" horizontalScrolling="true" modal="false" offsetX="0" offsetY="0" placement="Right" showHeader="true" title="Evaluer" verticalScrolling="true" visible="true">
-        <m:content>
-            <m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-            <m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                <m:items>
-                    <m:VBox alignItems="Stretch" direction="Column" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                        <m:items>
-                            <m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                                <m:items>
-                                    <m:Label text="Note :" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
-                                    <m:ToolbarSpacer width="10px"/>
-                                    <m:RatingIndicator value="0" maxValue="5" visualMode="Half" enabled="true" visible="true"/>
-                                </m:items>
-                                <m:layoutData/>
-                            </m:HBox>
-                            <m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-                            <m:Label text="Commentaire :" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
-                            <m:TextArea rows="2" cols="20" maxLength="0" wrapping="None" visible="true"/>
-                            <m:Button text="Envoyer" type="Accept" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
-                        </m:items>
-                        <m:layoutData/>
-                    </m:VBox>
-                </m:items>
-                <m:layoutData/>
-            </m:HBox>
-        </m:content>
-        <m:beginButton/>
-        <m:customHeader/>
-        <m:endButton/>
-        <m:footer/>
-        <m:subHeader/>
-    </m:Popover>
+	<m:Popover bounce="false" contentHeight="250px" contentWidth="350px" horizontalScrolling="true" modal="false" offsetX="0" offsetY="0"
+		placement="Right" showHeader="true" title="Evaluer" verticalScrolling="true" visible="true">
+		<m:content>
+			<m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+			<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+				visible="true" displayInline="false">
+				<m:items>
+					<m:VBox alignItems="Stretch" direction="Column" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+						visible="true" displayInline="false">
+						<m:items>
+							<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+								visible="true" displayInline="false">
+								<m:items>
+									<m:Label text="Note :" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:ToolbarSpacer width="10px"/>
+									<m:RatingIndicator value="0" maxValue="5" visualMode="Half" enabled="true" visible="true"/>
+								</m:items>
+								<m:layoutData/>
+							</m:HBox>
+							<m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+							<m:Label text="Commentaire :" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
+							<m:TextArea rows="2" cols="20" maxLength="0" wrapping="None" visible="true"/>
+							<m:Button text="Envoyer" type="Accept" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+						</m:items>
+						<m:layoutData/>
+					</m:VBox>
+				</m:items>
+				<m:layoutData/>
+			</m:HBox>
+		</m:content>
+		<m:beginButton/>
+		<m:customHeader/>
+		<m:endButton/>
+		<m:footer/>
+		<m:subHeader/>
+	</m:Popover>
 </mvc:View>

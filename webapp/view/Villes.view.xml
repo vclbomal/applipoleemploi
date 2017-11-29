@@ -1,47 +1,49 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.standard.buildPoleEmploiEpf.controller.Villes" xmlns:m="sap.m">
-    <m:Page showHeader="true" title="Inventaire" showFooter="false" showNavButton="true" navButtonPress="_onPageNavButtonPress1">
-        <m:content>
-            <m:List id="sap_Responsive_Page_0-content-sap_m_List-1511558751838-3ff835262cd8d1b30edd966c1_S1" mode="SingleSelectMaster" headerText="Header" footerText="" backgroundDesign="Solid" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" itemPress="_onListItemPress1" items="{/VilleSet}">
-                <m:infoToolbar>
-                    <m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
-                        <m:content>
-                            <m:Label text="Label" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
-                        </m:content>
-                    </m:Toolbar>
-                </m:infoToolbar>
-                <m:headerToolbar>
-                    <m:Toolbar visible="true" enabled="true" design="Solid">
-                        <m:content>
-                            <m:SearchField placeholder="Rechercher une ville" showSearchButton="true" visible="true" width="100%" liveChange="_onSearchFieldLiveChange1"/>
-                        </m:content>
-                    </m:Toolbar>
-                </m:headerToolbar>
-                <m:items>
-                    <m:ObjectListItem intro="" title="{name}" number="" numberUnit="" numberState="None" type="Active" selected="true" showMarkers="false">
-                        <m:attributes/>
-                        <m:firstStatus/>
-                        <m:secondStatus/>
-                    </m:ObjectListItem>
-                </m:items>
-            </m:List>
-        </m:content>
-        <m:footer>
-            <m:Bar design="Auto">
-                <m:contentLeft>
-                    <m:Button text="Evaluer" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
-                </m:contentLeft>
-                <m:contentMiddle>
-                    <m:Button text="Clôturer" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
-                </m:contentMiddle>
-                <m:contentRight>
-                    <m:Button text="Bilan" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
-                </m:contentRight>
-            </m:Bar>
-        </m:footer>
-        <m:headerContent>
-            <m:Image src="/webapp/resources/logo_pole_emploi.png" height="35px" width="auto" densityAware="false"/>
-        </m:headerContent>
-        <m:subHeader/>
-        <m:customHeader/>
-    </m:Page>
+	<m:Page showHeader="true" title="Inventaire" showFooter="false" showNavButton="true" navButtonPress="_onPageNavButtonPress1">
+		<m:content>
+			<m:List id="sap_Responsive_Page_0-content-sap_m_List-1511558751838-3ff835262cd8d1b30edd966c1_S1" mode="SingleSelectMaster"
+				headerText="Header" footerText="" backgroundDesign="Solid" showSeparators="All" growing="true" growingThreshold="20"
+				growingScrollToLoad="true" itemPress="_onListItemPress1" items="{/VilleSet}">
+				<m:infoToolbar>
+					<m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
+						<m:content>
+							<m:Label text="Label" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
+						</m:content>
+					</m:Toolbar>
+				</m:infoToolbar>
+				<m:headerToolbar>
+					<m:Toolbar visible="true" enabled="true" design="Solid">
+						<m:content>
+							<m:SearchField placeholder="Rechercher une ville" showSearchButton="true" visible="true" width="100%" liveChange="_onSearchFieldLiveChange1"/>
+						</m:content>
+					</m:Toolbar>
+				</m:headerToolbar>
+				<m:items>
+					<m:ObjectListItem intro="" title="{name}" number="" numberUnit="" numberState="None" type="Active" selected="true" showMarkers="false">
+						<m:attributes/>
+						<m:firstStatus/>
+						<m:secondStatus/>
+					</m:ObjectListItem>
+				</m:items>
+			</m:List>
+		</m:content>
+		<m:footer>
+			<m:Bar design="Auto">
+				<m:contentLeft>
+					<m:Button text="Evaluer" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+				</m:contentLeft>
+				<m:contentMiddle>
+					<m:Button text="Clôturer" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+				</m:contentMiddle>
+				<m:contentRight>
+					<m:Button text="Bilan" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+				</m:contentRight>
+			</m:Bar>
+		</m:footer>
+		<m:headerContent>
+			<m:Image src="/webapp/resources/logo_pole_emploi.png" height="35px" width="auto" densityAware="false"/>
+		</m:headerContent>
+		<m:subHeader/>
+		<m:customHeader/>
+	</m:Page>
 </mvc:View>

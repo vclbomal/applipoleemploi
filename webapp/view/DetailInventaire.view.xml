@@ -1,57 +1,65 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.standard.buildPoleEmploiEpf.controller.DetailInventaire" xmlns:m="sap.m">
-    <m:Page showHeader="true" title="Inventaire" showFooter="false" showNavButton="true" navButtonPress="_onPageNavButtonPress5">
-        <m:content>
-            <m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                <m:items>
-                    <m:VBox alignItems="Stretch" direction="Column" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                        <m:items>
-                            <m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                                <m:items>
-                                    <m:Link text="" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true" visible="true" emphasized="false" subtle="false"/>
-                                </m:items>
-                                <m:layoutData/>
-                            </m:HBox>
-                            <m:HBox alignItems="Start" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Start" renderType="Div" visible="true" displayInline="false">
-                                <m:items>
-                                    <m:Title text="Ordinateurs inventoriés :" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
-                                </m:items>
-                                <m:layoutData/>
-                            </m:HBox>
-                        </m:items>
-                        <m:layoutData/>
-                    </m:VBox>
-                </m:items>
-                <m:layoutData/>
-            </m:HBox>
-            <m:List mode="SingleSelectMaster" headerText="" footerText="" backgroundDesign="Solid" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" items="{/OrdinateurSet}">
-                <m:infoToolbar>
-                    <m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
-                        <m:content>
-                            <m:Label text="Label" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
-                        </m:content>
-                    </m:Toolbar>
-                </m:infoToolbar>
-                <m:headerToolbar/>
-                <m:items>
-                    <m:ObjectListItem intro="" title="{name}" number="{path: 'number', type: 'sap.ui.model.type.Float', formatOptions: { maxFractionDigits: 2 }}" numberUnit="unités" numberState="None" type="Active" selected="true" showMarkers="false">
-                        <m:attributes/>
-                        <m:firstStatus/>
-                        <m:secondStatus/>
-                    </m:ObjectListItem>
-                </m:items>
-            </m:List>
-        </m:content>
-        <m:footer>
-            <m:Bar design="Auto">
-                <m:contentLeft/>
-                <m:contentMiddle/>
-                <m:contentRight/>
-            </m:Bar>
-        </m:footer>
-        <m:headerContent>
-            <m:Image src="/webapp/resources/logo_pole_emploi.png" height="35px" width="auto" densityAware="false"/>
-        </m:headerContent>
-        <m:subHeader/>
-        <m:customHeader/>
-    </m:Page>
+	<m:Page showHeader="true" title="Inventaire" showFooter="false" showNavButton="true" navButtonPress="_onPageNavButtonPress5">
+		<m:content>
+			<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+				visible="true" displayInline="false">
+				<m:items>
+					<m:VBox alignItems="Stretch" direction="Column" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+						visible="true" displayInline="false">
+						<m:items>
+							<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+								visible="true" displayInline="false">
+								<m:items>
+									<m:Link text="" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true" visible="true" emphasized="false"
+										subtle="false"/>
+								</m:items>
+								<m:layoutData/>
+							</m:HBox>
+							<m:HBox alignItems="Start" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Start" renderType="Div"
+								visible="true" displayInline="false">
+								<m:items>
+									<m:Title text="Ordinateurs inventoriés :" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+								</m:items>
+								<m:layoutData/>
+							</m:HBox>
+						</m:items>
+						<m:layoutData/>
+					</m:VBox>
+				</m:items>
+				<m:layoutData/>
+			</m:HBox>
+			<m:List mode="SingleSelectMaster" headerText="" footerText="" backgroundDesign="Solid" showSeparators="All" growing="true"
+				growingThreshold="20" growingScrollToLoad="true" items="{/OrdinateurSet}">
+				<m:infoToolbar>
+					<m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
+						<m:content>
+							<m:Label text="Label" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
+						</m:content>
+					</m:Toolbar>
+				</m:infoToolbar>
+				<m:headerToolbar/>
+				<m:items>
+					<m:ObjectListItem intro="" title="{name}"
+						number="{path: 'number', type: 'sap.ui.model.type.Float', formatOptions: { maxFractionDigits: 2 }}" numberUnit="unités" numberState="None"
+						type="Active" selected="true" showMarkers="false">
+						<m:attributes/>
+						<m:firstStatus/>
+						<m:secondStatus/>
+					</m:ObjectListItem>
+				</m:items>
+			</m:List>
+		</m:content>
+		<m:footer>
+			<m:Bar design="Auto">
+				<m:contentLeft/>
+				<m:contentMiddle/>
+				<m:contentRight/>
+			</m:Bar>
+		</m:footer>
+		<m:headerContent>
+			<m:Image src="/webapp/resources/logo_pole_emploi.png" height="35px" width="auto" densityAware="false"/>
+		</m:headerContent>
+		<m:subHeader/>
+		<m:customHeader/>
+	</m:Page>
 </mvc:View>

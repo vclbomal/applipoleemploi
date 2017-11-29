@@ -1,24 +1,29 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.standard.buildPoleEmploiEpf.controller.Popover1" xmlns:m="sap.m">
-    <m:Popover bounce="true" contentHeight="150px" contentWidth="100%" horizontalScrolling="true" modal="true" offsetX="50" placement="Auto" showHeader="true" title="Ajouter une famille" verticalScrolling="false" visible="true">
-        <m:content>
-            <m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                <m:items>
-                    <m:VBox alignItems="Center" direction="Column" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                        <m:items>
-                            <m:Input placeholder="Nom de la famille" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0"/>
-                            <m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
-                            <m:Button text="Valider" type="Accept" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPress3"/>
-                        </m:items>
-                        <m:layoutData/>
-                    </m:VBox>
-                </m:items>
-                <m:layoutData/>
-            </m:HBox>
-        </m:content>
-        <m:beginButton/>
-        <m:customHeader/>
-        <m:endButton/>
-        <m:footer/>
-        <m:subHeader/>
-    </m:Popover>
+	<m:Popover bounce="true" contentHeight="150px" contentWidth="100%" horizontalScrolling="true" modal="true" offsetX="50" placement="Auto"
+		showHeader="true" title="Ajouter une famille" verticalScrolling="false" visible="true">
+		<m:content>
+			<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+				visible="true" displayInline="false">
+				<m:items>
+					<m:VBox alignItems="Center" direction="Column" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+						visible="true" displayInline="false">
+						<m:items>
+							<m:Input placeholder="Nom de la famille" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false"
+								maxLength="0"/>
+							<m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+							<m:Button text="Valider" type="Accept" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"
+								press="_onButtonPress2"/>
+						</m:items>
+						<m:layoutData/>
+					</m:VBox>
+				</m:items>
+				<m:layoutData/>
+			</m:HBox>
+		</m:content>
+		<m:beginButton/>
+		<m:customHeader/>
+		<m:endButton/>
+		<m:footer/>
+		<m:subHeader/>
+	</m:Popover>
 </mvc:View>

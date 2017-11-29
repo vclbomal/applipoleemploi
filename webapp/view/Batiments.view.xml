@@ -1,69 +1,77 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.standard.buildPoleEmploiEpf.controller.Batiments" xmlns:m="sap.m">
-    <m:Page showHeader="true" title="Inventaire" showFooter="false" showNavButton="true" navButtonPress="_onPageNavButtonPress2">
-        <m:content>
-            <m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                <m:items>
-                    <m:VBox alignItems="Stretch" direction="Column" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                        <m:items>
-                            <m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                                <m:items>
-                                    <m:Title text="Localisation" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
-                                </m:items>
-                                <m:layoutData/>
-                            </m:HBox>
-                            <m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                                <m:items>
-                                    <m:Link text="Agence Montreuil-sous-Bois" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true" visible="true" emphasized="false" subtle="false"/>
-                                </m:items>
-                                <m:layoutData/>
-                            </m:HBox>
-                        </m:items>
-                        <m:layoutData/>
-                    </m:VBox>
-                </m:items>
-                <m:layoutData/>
-            </m:HBox>
-            <m:List id="sap_Responsive_Page_0-content-sap_m_List-1511558751838-3ff835262cd8d1b30edd966c1_S1-2217dfa30e3813430edd96af2_S2" mode="SingleSelectMaster" headerText="Header" footerText="" backgroundDesign="Solid" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" itemPress="_onListItemPress2" items="{/BatimentSet}">
-                <m:infoToolbar>
-                    <m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
-                        <m:content>
-                            <m:Label text="Label" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
-                        </m:content>
-                    </m:Toolbar>
-                </m:infoToolbar>
-                <m:headerToolbar>
-                    <m:Toolbar visible="true" enabled="true" design="Solid">
-                        <m:content>
-                            <m:SearchField placeholder="Rechercher un bâtiment" showSearchButton="true" visible="true" width="100%" liveChange="_onSearchFieldLiveChange2"/>
-                        </m:content>
-                    </m:Toolbar>
-                </m:headerToolbar>
-                <m:items>
-                    <m:ObjectListItem intro="" title="{name}" number="" numberUnit="" numberState="None" type="Active" selected="true" showMarkers="false">
-                        <m:attributes/>
-                        <m:firstStatus/>
-                        <m:secondStatus/>
-                    </m:ObjectListItem>
-                </m:items>
-            </m:List>
-        </m:content>
-        <m:footer>
-            <m:Bar design="Auto">
-                <m:contentLeft>
-                    <m:Button text="Evaluer" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
-                </m:contentLeft>
-                <m:contentMiddle>
-                    <m:Button text="Clôturer" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
-                </m:contentMiddle>
-                <m:contentRight>
-                    <m:Button text="Bilan" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
-                </m:contentRight>
-            </m:Bar>
-        </m:footer>
-        <m:headerContent>
-            <m:Image src="/webapp/resources/logo_pole_emploi.png" height="35px" width="auto" densityAware="false"/>
-        </m:headerContent>
-        <m:subHeader/>
-        <m:customHeader/>
-    </m:Page>
+	<m:Page showHeader="true" title="Inventaire" showFooter="false" showNavButton="true" navButtonPress="_onPageNavButtonPress2">
+		<m:content>
+			<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+				visible="true" displayInline="false">
+				<m:items>
+					<m:VBox alignItems="Stretch" direction="Column" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+						visible="true" displayInline="false">
+						<m:items>
+							<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+								visible="true" displayInline="false">
+								<m:items>
+									<m:Title text="Localisation" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+								</m:items>
+								<m:layoutData/>
+							</m:HBox>
+							<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+								visible="true" displayInline="false">
+								<m:items>
+									<m:Link text="Agence Montreuil-sous-Bois" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true" visible="true"
+										emphasized="false" subtle="false"/>
+								</m:items>
+								<m:layoutData/>
+							</m:HBox>
+						</m:items>
+						<m:layoutData/>
+					</m:VBox>
+				</m:items>
+				<m:layoutData/>
+			</m:HBox>
+			<m:List id="sap_Responsive_Page_0-content-sap_m_List-1511558751838-3ff835262cd8d1b30edd966c1_S1-2217dfa30e3813430edd96af2_S2"
+				mode="SingleSelectMaster" headerText="Header" footerText="" backgroundDesign="Solid" showSeparators="All" growing="true"
+				growingThreshold="20" growingScrollToLoad="true" itemPress="_onListItemPress2" items="{/BatimentSet}">
+				<m:infoToolbar>
+					<m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
+						<m:content>
+							<m:Label text="Label" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
+						</m:content>
+					</m:Toolbar>
+				</m:infoToolbar>
+				<m:headerToolbar>
+					<m:Toolbar visible="true" enabled="true" design="Solid">
+						<m:content>
+							<m:SearchField placeholder="Rechercher un bâtiment" showSearchButton="true" visible="true" width="100%"
+								liveChange="_onSearchFieldLiveChange2"/>
+						</m:content>
+					</m:Toolbar>
+				</m:headerToolbar>
+				<m:items>
+					<m:ObjectListItem intro="" title="{name}" number="" numberUnit="" numberState="None" type="Active" selected="true" showMarkers="false">
+						<m:attributes/>
+						<m:firstStatus/>
+						<m:secondStatus/>
+					</m:ObjectListItem>
+				</m:items>
+			</m:List>
+		</m:content>
+		<m:footer>
+			<m:Bar design="Auto">
+				<m:contentLeft>
+					<m:Button text="Evaluer" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+				</m:contentLeft>
+				<m:contentMiddle>
+					<m:Button text="Clôturer" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+				</m:contentMiddle>
+				<m:contentRight>
+					<m:Button text="Bilan" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+				</m:contentRight>
+			</m:Bar>
+		</m:footer>
+		<m:headerContent>
+			<m:Image src="/webapp/resources/logo_pole_emploi.png" height="35px" width="auto" densityAware="false"/>
+		</m:headerContent>
+		<m:subHeader/>
+		<m:customHeader/>
+	</m:Page>
 </mvc:View>

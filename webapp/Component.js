@@ -2,17 +2,17 @@ sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
 	"com/sap/build/standard/buildPoleEmploiEpf/model/models",
-    	"com/sap/build/standard/buildPoleEmploiEpf/localService/mockserver"
-    ], function(UIComponent, Device, models, server) {
-    	"use strict";
-        
-    	// TODO remove the following demo code
-    	// ---------------------------- TEMP MOCKSERVER CODE------------------------------------------
-    	server.init();
-    	// ---------------------------- END TEMP MOCKSERVER CODE--------------------------------------
-    	
+	"com/sap/build/standard/buildPoleEmploiEpf/localService/mockserver"
+], function(UIComponent, Device, models, server) {
+	"use strict";
+
+	// TODO remove the following demo code
+	// ---------------------------- TEMP MOCKSERVER CODE------------------------------------------
+	server.init();
+	// ---------------------------- END TEMP MOCKSERVER CODE--------------------------------------
+
 	var navigationWithContext = {
-	
+
 	};
 
 	return UIComponent.extend("com.sap.build.standard.buildPoleEmploiEpf.Component", {
@@ -32,14 +32,15 @@ sap.ui.define([
 			this.setModel(models.createDeviceModel(), "device");
 			// set the FLP model
 			this.setModel(models.createFLPModel(), "FLP");
-			
-			// set the dataSource model
-			this.setModel(new sap.ui.model.json.JSONModel({"uri":"\"/here/goes/your/serviceUrl/\""}), "dataSource");
-			
 
-            // set application model
-            var oApplicationModel = new sap.ui.model.json.JSONModel({});
-		    this.setModel(oApplicationModel, "applicationModel");
+			// set the dataSource model
+			this.setModel(new sap.ui.model.json.JSONModel({
+				"uri": "\"/here/goes/your/serviceUrl/\""
+			}), "dataSource");
+
+			// set application model
+			var oApplicationModel = new sap.ui.model.json.JSONModel({});
+			this.setModel(oApplicationModel, "applicationModel");
 
 			// call the base component's init function
 			UIComponent.prototype.init.apply(this, arguments);

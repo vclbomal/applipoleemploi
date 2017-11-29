@@ -1,57 +1,64 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.standard.buildPoleEmploiEpf.controller.Regions" xmlns:m="sap.m">
-    <m:Page showHeader="true" title="Inventaire" showFooter="true" showNavButton="false">
-        <m:content>
-            <m:FeedListItem icon="/webapp/resources/1239734_1438134989737021_1475910407_n.jpg" sender="Bienvenue James SMITH" text="" info="" timestamp="27 novembre 2017"/>
-            <m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="End" renderType="Div" visible="true" displayInline="false">
-                <m:items>
-                    <m:VBox alignItems="Stretch" direction="Column" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                        <m:items>
-                            <m:Title text="Localisation" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
-                        </m:items>
-                        <m:layoutData/>
-                    </m:VBox>
-                    <m:ToolbarSpacer width="50px"/>
-                    <m:Switch state="false" customTextOff="Off" customTextOn="On" type="Default" enabled="true" visible="true" change="_onSwitchChange"/>
-                </m:items>
-                <m:layoutData/>
-            </m:HBox>
-            <m:List id="sap_Responsive_Page_0-content-sap_m_List-1511558751838" mode="SingleSelectMaster" headerText="Header" footerText="" backgroundDesign="Solid" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" itemPress="_onListItemPress" items="{/RegionSet}">
-                <m:infoToolbar>
-                    <m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
-                        <m:content>
-                            <m:Label text="Label" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
-                        </m:content>
-                    </m:Toolbar>
-                </m:infoToolbar>
-                <m:headerToolbar>
-                    <m:Toolbar visible="true" enabled="true" design="Solid">
-                        <m:content>
-                            <m:SearchField placeholder="Rechercher une région" showSearchButton="true" visible="true" width="100%" liveChange="_onSearchFieldLiveChange"/>
-                        </m:content>
-                    </m:Toolbar>
-                </m:headerToolbar>
-                <m:items>
-                    <m:ObjectListItem intro="" title="{name}" number="" numberUnit="" numberState="None" type="Active" selected="true" showMarkers="false" press="_onObjectListItemPress">
-                        <m:attributes/>
-                        <m:firstStatus/>
-                        <m:secondStatus/>
-                    </m:ObjectListItem>
-                </m:items>
-            </m:List>
-        </m:content>
-        <m:footer>
-            <m:Bar design="Auto">
-                <m:contentLeft>
-                    <m:Button text="Evaluer" type="Default" icon="sap-icon://travel-request" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPress2"/>
-                </m:contentLeft>
-                <m:contentMiddle/>
-                <m:contentRight/>
-            </m:Bar>
-        </m:footer>
-        <m:headerContent>
-            <m:Image src="/webapp/resources/logo_pole_emploi.png" height="35px" width="auto" densityAware="false"/>
-        </m:headerContent>
-        <m:subHeader/>
-        <m:customHeader/>
-    </m:Page>
+	<m:Page showHeader="true" title="Inventaire" showFooter="true" showNavButton="false">
+		<m:content>
+			<m:FeedListItem icon="/webapp/resources/1239734_1438134989737021_1475910407_n.jpg" sender="Bienvenue James SMITH" text="" info=""
+				timestamp="27 novembre 2017"/>
+			<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="End" renderType="Div"
+				visible="true" displayInline="false">
+				<m:items>
+					<m:VBox alignItems="Stretch" direction="Column" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+						visible="true" displayInline="false">
+						<m:items>
+							<m:Title text="Localisation" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+						</m:items>
+						<m:layoutData/>
+					</m:VBox>
+					<m:ToolbarSpacer width="50px"/>
+					<m:Switch state="false" customTextOff="Off" customTextOn="On" type="Default" enabled="true" visible="true" change="_onSwitchChange"/>
+				</m:items>
+				<m:layoutData/>
+			</m:HBox>
+			<m:List id="sap_Responsive_Page_0-content-sap_m_List-1511558751838" mode="SingleSelectMaster" headerText="Header" footerText=""
+				backgroundDesign="Solid" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" itemPress="_onListItemPress"
+				items="{/RegionSet}">
+				<m:infoToolbar>
+					<m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
+						<m:content>
+							<m:Label text="Label" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
+						</m:content>
+					</m:Toolbar>
+				</m:infoToolbar>
+				<m:headerToolbar>
+					<m:Toolbar visible="true" enabled="true" design="Solid">
+						<m:content>
+							<m:SearchField placeholder="Rechercher une région" showSearchButton="true" visible="true" width="100%" liveChange="_onSearchFieldLiveChange"/>
+						</m:content>
+					</m:Toolbar>
+				</m:headerToolbar>
+				<m:items>
+					<m:ObjectListItem intro="" title="{name}" number="" numberUnit="" numberState="None" type="Active" selected="true" showMarkers="false"
+						press="_onObjectListItemPress">
+						<m:attributes/>
+						<m:firstStatus/>
+						<m:secondStatus/>
+					</m:ObjectListItem>
+				</m:items>
+			</m:List>
+		</m:content>
+		<m:footer>
+			<m:Bar design="Auto">
+				<m:contentLeft>
+					<m:Button text="Evaluer" type="Default" icon="sap-icon://travel-request" iconFirst="true" width="auto" enabled="true" visible="true"
+						iconDensityAware="false" press="_onButtonPress4"/>
+				</m:contentLeft>
+				<m:contentMiddle/>
+				<m:contentRight/>
+			</m:Bar>
+		</m:footer>
+		<m:headerContent>
+			<m:Image src="/webapp/resources/logo_pole_emploi.png" height="35px" width="auto" densityAware="false"/>
+		</m:headerContent>
+		<m:subHeader/>
+		<m:customHeader/>
+	</m:Page>
 </mvc:View>

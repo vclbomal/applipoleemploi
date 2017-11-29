@@ -1,65 +1,75 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.standard.buildPoleEmploiEpf.controller.Famille" xmlns:m="sap.m">
-    <m:Page showHeader="true" title="Création d'un bien" showFooter="true" showNavButton="true" navButtonPress="_onPageNavButtonPress6">
-        <m:content>
-            <m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                <m:items>
-                    <m:VBox alignItems="Stretch" direction="Column" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                        <m:items>
-                            <m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div" visible="true" displayInline="false">
-                                <m:items>
-                                    <m:Link text="" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true" visible="true" emphasized="false" subtle="false"/>
-                                </m:items>
-                                <m:layoutData/>
-                            </m:HBox>
-                            <m:HBox alignItems="Start" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Start" renderType="Div" visible="true" displayInline="false">
-                                <m:items>
-                                    <m:Title text="Familles de bien :" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
-                                </m:items>
-                                <m:layoutData/>
-                            </m:HBox>
-                        </m:items>
-                        <m:layoutData/>
-                    </m:VBox>
-                </m:items>
-                <m:layoutData/>
-            </m:HBox>
-            <m:List id="sap_Responsive_Page_0-content-sap_m_List-1511558751838-3ff835262cd8d1b30edd966c1_S1-2217dfa30e3813430edd96af2_S2-34b26c6ead123d140ee0994b6_S6-884194e29b005eff0ee0a3257_S7-1570b265dd68f7cf0ee0b73c10_S10" mode="SingleSelectMaster" headerText="" footerText="" backgroundDesign="Solid" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" itemPress="_onListItemPress5" items="{/BienSet}">
-                <m:infoToolbar>
-                    <m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
-                        <m:content>
-                            <m:Label text="Label" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
-                        </m:content>
-                    </m:Toolbar>
-                </m:infoToolbar>
-                <m:headerToolbar>
-                    <m:Toolbar visible="true" enabled="true" design="Solid">
-                        <m:content>
-                            <m:SearchField placeholder="Rechercher un bien" showSearchButton="true" visible="true" width="100%" liveChange="_onSearchFieldLiveChange5"/>
-                        </m:content>
-                    </m:Toolbar>
-                </m:headerToolbar>
-                <m:items>
-                    <m:ObjectListItem intro="" title="{name}" icon="{image}" number="" numberUnit="" numberState="None" type="Active" selected="true" showMarkers="false" press="_onObjectListItemPress2">
-                        <m:attributes/>
-                        <m:firstStatus/>
-                        <m:secondStatus/>
-                    </m:ObjectListItem>
-                </m:items>
-            </m:List>
-        </m:content>
-        <m:footer>
-            <m:Bar design="Auto">
-                <m:contentLeft/>
-                <m:contentMiddle>
-                    <m:Button text="Ajouter une famille" type="Default" icon="sap-icon://add" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPress10"/>
-                </m:contentMiddle>
-                <m:contentRight/>
-            </m:Bar>
-        </m:footer>
-        <m:headerContent>
-            <m:Image src="/webapp/resources/logo_pole_emploi.png" height="35px" width="auto" densityAware="false"/>
-        </m:headerContent>
-        <m:subHeader/>
-        <m:customHeader/>
-    </m:Page>
+	<m:Page showHeader="true" title="Création d'un bien" showFooter="true" showNavButton="true" navButtonPress="_onPageNavButtonPress6">
+		<m:content>
+			<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+				visible="true" displayInline="false">
+				<m:items>
+					<m:VBox alignItems="Stretch" direction="Column" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+						visible="true" displayInline="false">
+						<m:items>
+							<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+								visible="true" displayInline="false">
+								<m:items>
+									<m:Link text="" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true" visible="true" emphasized="false"
+										subtle="false"/>
+								</m:items>
+								<m:layoutData/>
+							</m:HBox>
+							<m:HBox alignItems="Start" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Start" renderType="Div"
+								visible="true" displayInline="false">
+								<m:items>
+									<m:Title text="Familles de bien :" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
+								</m:items>
+								<m:layoutData/>
+							</m:HBox>
+						</m:items>
+						<m:layoutData/>
+					</m:VBox>
+				</m:items>
+				<m:layoutData/>
+			</m:HBox>
+			<m:List
+				id="sap_Responsive_Page_0-content-sap_m_List-1511558751838-3ff835262cd8d1b30edd966c1_S1-2217dfa30e3813430edd96af2_S2-34b26c6ead123d140ee0994b6_S6-884194e29b005eff0ee0a3257_S7-1570b265dd68f7cf0ee0b73c10_S10"
+				mode="SingleSelectMaster" headerText="" footerText="" backgroundDesign="Solid" showSeparators="All" growing="true" growingThreshold="20"
+				growingScrollToLoad="true" itemPress="_onListItemPress5" items="{/BienSet}">
+				<m:infoToolbar>
+					<m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
+						<m:content>
+							<m:Label text="Label" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
+						</m:content>
+					</m:Toolbar>
+				</m:infoToolbar>
+				<m:headerToolbar>
+					<m:Toolbar visible="true" enabled="true" design="Solid">
+						<m:content>
+							<m:SearchField placeholder="Rechercher un bien" showSearchButton="true" visible="true" width="100%" liveChange="_onSearchFieldLiveChange5"/>
+						</m:content>
+					</m:Toolbar>
+				</m:headerToolbar>
+				<m:items>
+					<m:ObjectListItem intro="" title="{name}" icon="{image}" number="" numberUnit="" numberState="None" type="Active" selected="true"
+						showMarkers="false" press="_onObjectListItemPress2">
+						<m:attributes/>
+						<m:firstStatus/>
+						<m:secondStatus/>
+					</m:ObjectListItem>
+				</m:items>
+			</m:List>
+		</m:content>
+		<m:footer>
+			<m:Bar design="Auto">
+				<m:contentLeft/>
+				<m:contentMiddle>
+					<m:Button text="Ajouter une famille" type="Default" icon="sap-icon://add" iconFirst="true" width="auto" enabled="true" visible="true"
+						iconDensityAware="false" press="_onButtonPress10"/>
+				</m:contentMiddle>
+				<m:contentRight/>
+			</m:Bar>
+		</m:footer>
+		<m:headerContent>
+			<m:Image src="/webapp/resources/logo_pole_emploi.png" height="35px" width="auto" densityAware="false"/>
+		</m:headerContent>
+		<m:subHeader/>
+		<m:customHeader/>
+	</m:Page>
 </mvc:View>

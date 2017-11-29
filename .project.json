@@ -1,0 +1,59 @@
+{
+  "dataBinding": {
+    "/webapp/view/Scan.view.xml": {
+      "entitySet": ""
+    },
+    "/webapp/view/Popover2.view.xml": {
+      "entitySet": ""
+    },
+    "/webapp/view/Popover1.view.xml": {
+      "entitySet": ""
+    },
+    "/webapp/view/Connexion.view.xml": {
+      "entitySet": ""
+    },
+    "/webapp/view/Regions.view.xml": {
+      "entitySet": ""
+    },
+    "/webapp/view/Villes.view.xml": {
+      "entitySet": ""
+    },
+    "/webapp/view/Batiments.view.xml": {
+      "entitySet": ""
+    },
+    "/webapp/view/Accueil.view.xml": {
+      "entitySet": ""
+    },
+    "/webapp/view/Bureau.view.xml": {
+      "entitySet": ""
+    },
+    "/webapp/view/DetailInventaire.view.xml": {
+      "entitySet": ""
+    },
+    "/webapp/view/Famille.view.xml": {
+      "entitySet": ""
+    },
+    "/webapp/view/CreationBien.view.xml": {
+      "entitySet": ""
+    }
+  },
+  "generation": [
+    {
+      "templateId": "build_import_prototype",
+      "templateVersion": "1.0.0",
+      "dateTimeStamp": "Wed, 29 Nov 2017 15:16:31 GMT"
+    }
+  ],
+  "translation": {
+    "translationDomain": "",
+    "supportedLanguages": "en,fr,de",
+    "defaultLanguage": "en",
+    "defaultI18NPropertyFile": "i18n.properties",
+    "resourceModelName": "i18n"
+  },
+  "hcpdeploy": {
+    "account": "p1942913203trial",
+    "name": "applipoleemploi",
+    "lastVersionWeTriedToDeploy": "1.0.3"
+  }
+}
