@@ -1,5 +1,5 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.standard.buildPoleEmploiEpf.controller.DetailInventaire" xmlns:m="sap.m">
-	<m:Page showHeader="true" title="Inventaire" showFooter="false" showNavButton="true" navButtonPress="_onPageNavButtonPress5">
+	<m:Page showHeader="true" title="Inventaire" showFooter="false" showNavButton="true" navButtonPress="_onPageNavButtonPress6">
 		<m:content>
 			<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
 				visible="true" displayInline="false">

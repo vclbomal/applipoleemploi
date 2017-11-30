@@ -1,6 +1,6 @@
 {
   "dataBinding": {
-  	"/webapp/view/Connexion.view.xml": {
+    "/webapp/view/Connexion.view.xml": {
       "entitySet": ""
     },
     "/webapp/view/Scan.view.xml": {
@@ -54,6 +54,6 @@
   "hcpdeploy": {
     "account": "p1942913203trial",
     "name": "applipoleemploi",
-    "lastVersionWeTriedToDeploy": "1.0.5"
+    "lastVersionWeTriedToDeploy": "1.0.6"
   }
 }

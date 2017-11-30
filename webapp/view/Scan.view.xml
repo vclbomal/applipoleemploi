@@ -1,5 +1,5 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.standard.buildPoleEmploiEpf.controller.Scan" xmlns:m="sap.m">
-	<m:Page showHeader="true" title="Inventaire" showFooter="true" showNavButton="true" navButtonPress="_onPageNavButtonPress">
+	<m:Page showHeader="true" title="Inventaire" showFooter="true" showNavButton="true" navButtonPress="_onPageNavButtonPress1">
 		<m:content>
 			<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
 				visible="true" displayInline="false">
@@ -72,12 +72,7 @@
 					<m:Button text="Déclarer" type="Default" icon="sap-icon://cancel-maintenance" iconFirst="true" width="auto" enabled="true" visible="true"
 						iconDensityAware="false" press="_onButtonPress1"/>
 				</m:contentLeft>
-				<m:contentMiddle>
-					<m:Button text="" type="Default" icon="sap-icon://refresh" iconFirst="true" width="auto" enabled="true" visible="true"
-						iconDensityAware="false"/>
-					<m:Button text="" type="Default" icon="sap-icon://bar-code" iconFirst="true" width="auto" enabled="true" visible="true"
-						iconDensityAware="false"/>
-				</m:contentMiddle>
+				<m:contentMiddle/>
 				<m:contentRight>
 					<m:Button text="" type="Default" icon="sap-icon://add" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
 					<m:Button text="" type="Default" icon="sap-icon://bar-code" iconFirst="true" width="auto" enabled="true" visible="true"

@@ -23,13 +23,13 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			}
 
 		},
-		_onPageNavButtonPress3: function(oEvent) {
+		_onPageNavButtonPress4: function(oEvent) {
 
 			var oBindingContext = oEvent.getSource().getBindingContext();
 
 			return new Promise(function(fnResolve) {
 
-				this.doNavigate("Villes", oBindingContext, fnResolve, "");
+				this.doNavigate("Regions", oBindingContext, fnResolve, "");
 			}.bind(this)).catch(function(err) {
 				if (err !== undefined) {
 					MessageBox.error(err.message);

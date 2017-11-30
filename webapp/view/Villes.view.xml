@@ -1,5 +1,5 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.standard.buildPoleEmploiEpf.controller.Villes" xmlns:m="sap.m">
-	<m:Page showHeader="true" title="Inventaire" showFooter="false" showNavButton="true" navButtonPress="_onPageNavButtonPress1">
+	<m:Page showHeader="true" title="Inventaire" showFooter="false" showNavButton="true" navButtonPress="_onPageNavButtonPress2">
 		<m:content>
 			<m:List id="sap_Responsive_Page_0-content-sap_m_List-1511558751838-3ff835262cd8d1b30edd966c1_S1" mode="SingleSelectMaster"
 				headerText="Header" footerText="" backgroundDesign="Solid" showSeparators="All" growing="true" growingThreshold="20"

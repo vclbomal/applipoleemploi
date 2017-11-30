@@ -23,6 +23,30 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			}
 
 		},
+		_onPageNavButtonPress: function() {
+
+			var oHistory = History.getInstance();
+			var sPreviousHash = oHistory.getPreviousHash();
+			var oQueryParams = this.getQueryParameters(window.location);
+
+			if (sPreviousHash !== undefined || oQueryParams.navBackToLaunchpad) {
+				window.history.go(-1);
+			} else {
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				oRouter.navTo("default", true);
+			}
+		},
+		getQueryParameters: function(oLocation) {
+
+			var oQuery = {};
+			var aParams = oLocation.search.substring(1).split("&");
+			for (var i = 0; i < aParams.length; i++) {
+				var aPair = aParams[i].split("=");
+				oQuery[aPair[0]] = decodeURIComponent(aPair[1]);
+			}
+			return oQuery;
+
+		},
 		_onButtonPress: function(oEvent) {
 
 			var oBindingContext = oEvent.getSource().getBindingContext();

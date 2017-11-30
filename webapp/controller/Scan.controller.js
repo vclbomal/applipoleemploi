@@ -23,7 +23,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			}
 
 		},
-		_onPageNavButtonPress: function(oEvent) {
+		_onPageNavButtonPress1: function(oEvent) {
 
 			var oBindingContext = oEvent.getSource().getBindingContext();
 
