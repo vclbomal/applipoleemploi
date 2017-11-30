@@ -5,6 +5,27 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 ], function(BaseController, MessageBox, Utilities, History) {
 	"use strict";
 
+	function loadCameraView() {
+		function hasGetUserMedia() {
+			return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+				navigator.mozGetUserMedia || navigator.msGetUserMedia);
+		}
+		if (hasGetUserMedia()) {
+			var video = $("video");
+			navigator.getUserMedia({
+				video: true,
+				audio: false
+			}, function(localMediaStream) {
+				video["0"].src = window.URL.createObjectURL(localMediaStream);
+			}, function() {
+				MessageBox.error("Merci de verifier vos autorisations");
+			});
+		} else {
+			MessageBox.error("La fonctionnalité n'est pas supportée par votre navigateur");
+			video.src = "somevideo.webm"; // fallback.
+		}
+	}
+
 	return BaseController.extend("com.sap.build.standard.buildPoleEmploiEpf.controller.Scan", {
 		handleRouteMatched: function(oEvent) {
 
@@ -107,6 +128,80 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 				}
 			});
 
+		},
+		_onScanButtonPress: function() {
+			loadCameraView();
+			var liveStreamConfig = { //See Quagga documentation for more details
+				inputStream: {
+					type: "LiveStream",
+					target: document.querySelector("video"),
+					constraints: {
+						width: {
+							min: 640
+						},
+						height: {
+							min: 480
+						},
+						aspectRatio: {
+							min: 1,
+							max: 100
+						},
+						facingMode: "environment" // or "user" for the front camera
+					},
+					area: { // defines rectangle of the detection/localization area
+						top: "0%", // top offset
+						right: "0%", // right offset
+						left: "0%", // left offset
+						bottom: "0%" // bottom offset
+					},
+					singleChannel: false // true: only the red color-channel is read
+				},
+				locator: {
+					halfSample: true,
+					patchSize: "medium", // x-small, small, medium, large, x-large
+					debug: {
+						showCanvas: false,
+						showPatches: false,
+						showFoundPatches: false,
+						showSkeleton: false,
+						showLabels: false,
+						showPatchLabels: false,
+						showRemainingPatchLabels: false,
+						boxFromPatches: {
+							showTransformed: false,
+							showTransformedBox: false,
+							showBB: false
+						}
+					}
+				},
+				numOfWorkers: (navigator.hardwareConcurrency ? navigator.hardwareConcurrency : 4),
+				decoder: {
+					readers: ["ean_reader"
+						//{"format":"ean_reader","config":{}}
+					]
+				},
+				locate: true
+			};
+
+			// Start the live stream scanner
+			Quagga.init(liveStreamConfig, function(err) {
+				if (err) {
+					MessageBox.error(err.message);
+					Quagga.stop();
+					return;
+				}
+				Quagga.start();
+			});
+
+			// Executes when barcode recognised
+			Quagga.onDetected(function(result) {
+				if (result.codeResult.code) {
+					jQuery.sap.log.debug("code detected " + result.codeResult.code);
+					var input = $(".barcode input");
+					input["0"].value = result.codeResult.code;
+					Quagga.stop();
+				}
+			});
 		},
 		onInit: function() {
 

@@ -1,4 +1,4 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.standard.buildPoleEmploiEpf.controller.Scan" xmlns:m="sap.m">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.standard.buildPoleEmploiEpf.controller.Scan" xmlns:m="sap.m" xmlns:html="http://www.w3.org/1999/xhtml">
 	<m:Page showHeader="true" title="Inventaire" showFooter="true" showNavButton="true" navButtonPress="_onPageNavButtonPress1">
 		<m:content>
 			<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
@@ -17,7 +17,7 @@
 							<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Start" renderType="Div"
 								visible="true" displayInline="false">
 								<m:items>
-									<m:Image src="/webapp/resources/black.png" height="150px" width="250px" densityAware="false"/>
+									<html:video autoplay="autoplay" src="/webapp/resources/black.png" height="150px" width="250px"/>
 								</m:items>
 								<m:layoutData/>
 							</m:HBox>
@@ -29,7 +29,7 @@
 										visible="true" displayInline="false">
 										<m:items>
 											<m:Label text="Code-barres :" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
-											<m:Input placeholder="123456789" type="Number" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false"
+											<m:Input class="barcode" placeholder="123456789" type="Number" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false"
 												maxLength="0"/>
 										</m:items>
 										<m:layoutData/>
@@ -76,7 +76,7 @@
 				<m:contentRight>
 					<m:Button text="" type="Default" icon="sap-icon://add" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
 					<m:Button text="" type="Default" icon="sap-icon://bar-code" iconFirst="true" width="auto" enabled="true" visible="true"
-						iconDensityAware="false"/>
+						iconDensityAware="false" press="_onScanButtonPress"/>
 				</m:contentRight>
 			</m:Bar>
 		</m:footer>
@@ -85,5 +85,6 @@
 		</m:headerContent>
 		<m:subHeader/>
 		<m:customHeader/>
+		<html:script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.js"></html:script>
 	</m:Page>
 </mvc:View>
