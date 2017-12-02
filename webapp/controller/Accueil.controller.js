@@ -4,7 +4,76 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History"
 ], function(BaseController, MessageBox, Utilities, History) {
 	"use strict";
-
+	
+	function filterPositionsByPostCode(postalCode, data) {
+		var filteredData = [];
+		for (var i = 0; i<data.length; i++){
+			if (data[i].postalCode === postalCode){
+				filteredData.push(data[i]);
+			}
+		}
+		return filteredData;
+	}
+	
+	function Deg2Rad(deg) {
+	  return deg * Math.PI / 180;
+	}
+	
+	function comparePositions(lat1, lon1, lat2, lon2) {
+		lat1 = Deg2Rad(lat1);
+		lat2 = Deg2Rad(lat2);
+		lon1 = Deg2Rad(lon1);
+		lon2 = Deg2Rad(lon2);
+		var R = 6371; // km
+		var x = (lon2 - lon1) * Math.cos((lat1 + lat2) / 2);
+		var y = (lat2 - lat1);
+		var d = Math.sqrt(x * x + y * y) * R;
+		return d;
+	}
+	
+	function nearestOffice(latitude, longitude, data) {
+		var mindif = 99999;
+		var closest;
+	
+		for (var index = 0; index < data.length; ++index) {
+	    	var dif = comparePositions(latitude, longitude, data[index][1], data[index][2]);
+	    	if (dif < mindif) {
+	    		closest = index;
+	    		mindif = dif;
+	    	}
+		}
+		return (data[closest]); 
+	}
+	
+	function reverseGeoLoc(position){
+		var lat = position.coords.latitude;
+		var long = position.coords.longitude;
+		$.ajax({
+			url : "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + ","
+			+ long + "&key=" + "AIzaSyACL8sYHA7uHdJiHQ6QKIvcqCrTyvLXW38", 
+			type : "GET",
+			success : function(result, statut){
+        		var postalCode = result.results[0].address_components[6].long_name;
+        		console.log("CODE POSTALE : " + postalCode);
+        		//var filteredList = filterPositionsByPostCode(postalCode, data);
+        		//return nearestOffice(lat, long, filteredList);
+	    	},
+		    error : function(resultat, statut, error){
+				MessageBox.error("Erreur lors de la lecture de la position");
+		     }
+		});
+	}
+	
+	function getUserLoc(){
+		 if (navigator.geolocation) {
+        	navigator.geolocation.getCurrentPosition(reverseGeoLoc);
+	    } else {
+	        MessageBox.error("La géolocation n'est pas supportée par ce navigateur.");
+	    }
+	}
+	
+	
+	
 	return BaseController.extend("com.sap.build.standard.buildPoleEmploiEpf.controller.Accueil", {
 		handleRouteMatched: function(oEvent) {
 
@@ -264,7 +333,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 
 		},
 		onInit: function() {
-
+			getUserLoc();
 			this.mBindingOptions = {};
 			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			this.oRouter.getTarget("Accueil").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
