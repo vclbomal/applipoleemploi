@@ -29,7 +29,8 @@
 				<m:layoutData/>
 			</m:HBox>
 			<m:List mode="SingleSelectMaster" headerText="" footerText="" backgroundDesign="Solid" showSeparators="All" growing="true"
-				growingThreshold="20" growingScrollToLoad="true" items="{/OrdinateurSet}">
+				growingThreshold="20" growingScrollToLoad="true" items="{/Immo}">
+				<!-- //faire le tri en fonction de la famille choisi-->
 				<m:infoToolbar>
 					<m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
 						<m:content>
@@ -39,7 +40,7 @@
 				</m:infoToolbar>
 				<m:headerToolbar/>
 				<m:items>
-					<m:ObjectListItem intro="" title="{name}"
+					<m:ObjectListItem intro="" title="{IMMO_NAME}"
 						number="{path: 'number', type: 'sap.ui.model.type.Float', formatOptions: { maxFractionDigits: 2 }}" numberUnit="unités" numberState="None"
 						type="Active" selected="true" showMarkers="false">
 						<m:attributes/>

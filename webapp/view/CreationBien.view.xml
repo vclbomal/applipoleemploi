@@ -40,17 +40,17 @@
 							<m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
 							<m:Label text="Choix du type de bien :" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
 							<m:ComboBox value="" placeholder="Type de bien" editable="true" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%"
-								items="{/BienSet}">
+								items="{/Type}">
 								<m:items>
-									<core:Item text="{name}" enabled="true" key="{name}"/>
+									<core:Item text="{TYPE_NAME}" enabled="true" key="{name}"/>
 								</m:items>
 							</m:ComboBox>
 							<m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
 							<m:Label text="Choix du nom du bien :" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
 							<m:ComboBox value="" placeholder="Nom du bien" editable="true" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%"
-								items="{/OrdinateurSet}">
+								items="{/Immo}">
 								<m:items>
-									<core:Item text="{name}" enabled="true" key="{name}"/>
+									<core:Item text="{IMMO_NAME}" enabled="true" key="{name}"/>
 								</m:items>
 							</m:ComboBox>
 							<m:Button text="Créer" type="Accept" iconFirst="true" width="200px" enabled="true" visible="true" iconDensityAware="false"

@@ -9,7 +9,6 @@
 			"version": "1.0.0"
 		},
 		"dataSources": {
-
 			"main": {
 				"uri": "/here/goes/your/serviceUrl/",
 				"type": "OData",
@@ -17,16 +16,23 @@
 					"odataVersion": "2.0",
 					"localUri": "localService/metadata.xml"
 				}
+			},
+			"applisappe.xsodata": {
+				"uri": "/datasappe/applisappe/services/applisappe.xsodata/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/applisappe.xsodata/metadata.xml"
+				}
 			}
-
 		},
 		"title": "{{appTitle}}",
 		"description": "{{appDescription}}",
 		"ach": "ach",
 		"resources": "resources.json",
 		"sourceTemplate": {
-			"id": "ui5template.basicSAPUI5ApplicationProject",
-			"version": "1.32.0"
+			"id": "servicecatalog.connectivityComponent",
+			"version": "0.0.0"
 		}
 	},
 	"sap.ui": {
@@ -45,9 +51,7 @@
 			"tablet": true,
 			"phone": true
 		},
-		"supportedThemes": [
-			"sap_bluecrystal"
-		]
+		"supportedThemes": ["sap_bluecrystal"]
 	},
 	"sap.ui5": {
 		"_version": "1.1.0",
@@ -72,21 +76,26 @@
 				"type": "sap.ui.model.resource.ResourceModel",
 				"uri": "i18n/i18n.properties"
 			},
-
 			"": {
-				"dataSource": "main",
 				"type": "sap.ui.model.odata.v2.ODataModel",
 				"settings": {
-					"loadMetadataAsync": false,
-					"json": true,
-					"bJSON": true,
+					"defaultOperationMode": "Server",
 					"defaultBindingMode": "TwoWay",
-					"useBatch": true,
-					"refreshAfterChange": false,
-					"disableHeadRequestForToken": true
-				}
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "applisappe.xsodata",
+				"preload": true
+			},
+			"bddbuild": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneTime",
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "main",
+				"preload": true
 			}
-
 		},
 		"resources": {
 			"css": []
@@ -100,13 +109,10 @@
 				"clearTarget": false,
 				"controlAggregation": "pages",
 				"bypassed": {
-					"target": [
-						"Scan"
-					]
+					"target": ["Scan"]
 				}
 			},
 			"targets": {
-
 				"Connexion": {
 					"controlAggregation": "pages",
 					"viewName": "Connexion",
@@ -114,7 +120,6 @@
 					"viewLevel": 1,
 					"transition": "slide"
 				},
-
 				"Regions": {
 					"controlAggregation": "pages",
 					"viewName": "Regions",
@@ -122,7 +127,6 @@
 					"viewLevel": 1,
 					"transition": "slide"
 				},
-
 				"Villes": {
 					"controlAggregation": "pages",
 					"viewName": "Villes",
@@ -130,7 +134,6 @@
 					"viewLevel": 1,
 					"transition": "slide"
 				},
-
 				"Batiments": {
 					"controlAggregation": "pages",
 					"viewName": "Batiments",
@@ -138,7 +141,6 @@
 					"viewLevel": 1,
 					"transition": "slide"
 				},
-
 				"Accueil": {
 					"controlAggregation": "pages",
 					"viewName": "Accueil",
@@ -146,7 +148,6 @@
 					"viewLevel": 1,
 					"transition": "slide"
 				},
-
 				"Bureau": {
 					"controlAggregation": "pages",
 					"viewName": "Bureau",
@@ -154,7 +155,6 @@
 					"viewLevel": 2,
 					"transition": "slide"
 				},
-
 				"Scan": {
 					"controlAggregation": "pages",
 					"viewName": "Scan",
@@ -162,7 +162,6 @@
 					"viewLevel": 3,
 					"transition": "slide"
 				},
-
 				"DetailInventaire": {
 					"controlAggregation": "pages",
 					"viewName": "DetailInventaire",
@@ -170,7 +169,6 @@
 					"viewLevel": 4,
 					"transition": "slide"
 				},
-
 				"Famille": {
 					"controlAggregation": "pages",
 					"viewName": "Famille",
@@ -178,7 +176,6 @@
 					"viewLevel": 1,
 					"transition": "slide"
 				},
-
 				"CreationBien": {
 					"controlAggregation": "pages",
 					"viewName": "CreationBien",
@@ -186,99 +183,56 @@
 					"viewLevel": 5,
 					"transition": "slide"
 				}
-
 			},
-			"routes": [
-
-				{
-					"pattern": "Scan/:context:",
-					"name": "Scan",
-					"target": [
-						"Scan"
-					]
-				},
-
-				{
-					"pattern": "",
-					"name": "default",
-					"target": [
-						"Scan"
-					]
-				},
-
-				{
-					"pattern": "Connexion/:context:",
-					"name": "Connexion",
-					"target": [
-						"Connexion"
-					]
-				},
-
-				{
-					"pattern": "Regions/:context:",
-					"name": "Regions",
-					"target": [
-						"Regions"
-					]
-				},
-
-				{
-					"pattern": "Villes/:context:",
-					"name": "Villes",
-					"target": [
-						"Villes"
-					]
-				},
-
-				{
-					"pattern": "Batiments/:context:",
-					"name": "Batiments",
-					"target": [
-						"Batiments"
-					]
-				},
-
-				{
-					"pattern": "Accueil/:context:",
-					"name": "Accueil",
-					"target": [
-						"Accueil"
-					]
-				},
-
-				{
-					"pattern": "Bureau/:context:",
-					"name": "Bureau",
-					"target": [
-						"Bureau"
-					]
-				},
-
-				{
-					"pattern": "DetailInventaire/:context:",
-					"name": "DetailInventaire",
-					"target": [
-						"DetailInventaire"
-					]
-				},
-
-				{
-					"pattern": "Famille/:context:",
-					"name": "Famille",
-					"target": [
-						"Famille"
-					]
-				},
-
-				{
-					"pattern": "CreationBien/:context:",
-					"name": "CreationBien",
-					"target": [
-						"CreationBien"
-					]
-				}
-
-			]
+			"routes": [{
+				"pattern": "Scan/:context:",
+				"name": "Scan",
+				"target": ["Scan"]
+			}, {
+				"pattern": "",
+				"name": "default",
+				"target": ["Connexion"]
+			}, {
+				"pattern": "Connexion/:context:",
+				"name": "Connexion",
+				"target": ["Connexion"]
+			}, {
+				"pattern": "Regions/:context:",
+				"name": "Regions",
+				"target": ["Regions"]
+			}, {
+				"pattern": "Villes/:context:",
+				"name": "Villes",
+				"target": ["Villes"]
+			}, {
+				"pattern": "Batiments/:context:",
+				"name": "Batiments",
+				"target": ["Batiments"]
+			}, {
+				"pattern": "Accueil/:context:",
+				"name": "Accueil",
+				"target": ["Accueil"]
+			}, {
+				"pattern": "Bureau/:context:",
+				"name": "Bureau",
+				"target": ["Bureau"]
+			}, {
+				"pattern": "DetailInventaire/:context:",
+				"name": "DetailInventaire",
+				"target": ["DetailInventaire"]
+			}, {
+				"pattern": "Famille/:context:",
+				"name": "Famille",
+				"target": ["Famille"]
+			}, {
+				"pattern": "CreationBien/:context:",
+				"name": "CreationBien",
+				"target": ["CreationBien"]
+			}]
 		}
+	},
+	"sap.platform.hcp": {
+		"uri": "webapp",
+		"_version": "1.1.0"
 	}
 }

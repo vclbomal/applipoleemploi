@@ -74,7 +74,7 @@
 			<m:List
 				id="sap_Responsive_Page_0-content-sap_m_List-1511558751838-3ff835262cd8d1b30edd966c1_S1-2217dfa30e3813430edd96af2_S2-34b26c6ead123d140ee0994b6_S6-884194e29b005eff0ee0a3257_S7"
 				mode="SingleSelectMaster" headerText="" footerText="" backgroundDesign="Solid" showSeparators="All" growing="true" growingThreshold="20"
-				growingScrollToLoad="true" itemPress="_onListItemPress4" items="{/BienSet}">
+				growingScrollToLoad="true" itemPress="_onListItemPress4" items="{/Famille}">
 				<m:infoToolbar>
 					<m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
 						<m:content>
@@ -90,7 +90,7 @@
 					</m:Toolbar>
 				</m:headerToolbar>
 				<m:items>
-					<m:ObjectListItem intro="" title="{name}" icon="{image}"
+					<m:ObjectListItem intro="" title="{FAMILLE_NAME}" icon="{image}"
 						number="{path: 'number', type: 'sap.ui.model.type.Float', formatOptions: { maxFractionDigits: 2 }}" numberUnit="" numberState="None"
 						type="Active" selected="true" showMarkers="false">
 						<m:attributes/>

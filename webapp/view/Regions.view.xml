@@ -20,7 +20,7 @@
 			</m:HBox>
 			<m:List id="sap_Responsive_Page_0-content-sap_m_List-1511558751838" mode="SingleSelectMaster" headerText="Header" footerText=""
 				backgroundDesign="Solid" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" itemPress="_onListItemPress"
-				items="{/RegionSet}">
+				items="{/Region}">
 				<m:infoToolbar>
 					<m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
 						<m:content>
@@ -36,7 +36,7 @@
 					</m:Toolbar>
 				</m:headerToolbar>
 				<m:items>
-					<m:ObjectListItem intro="" title="{name}" number="" numberUnit="" numberState="None" type="Active" selected="true" showMarkers="false"
+					<m:ObjectListItem intro="" title="{REGION_NAME}" number="" numberUnit="" numberState="None" type="Active" selected="true" showMarkers="false"
 						press="_onObjectListItemPress">
 						<m:attributes/>
 						<m:firstStatus/>

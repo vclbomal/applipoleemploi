@@ -1,0 +1,158 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+    <edmx:DataServices
+        xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+        <Schema
+            xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
+            xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="applisappe.services">
+            <EntityType Name="RegionType">
+                <Key>
+                    <PropertyRef Name="REGION_ID"/>
+                </Key>
+                <Property Name="REGION_ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="REGION_NAME" Type="Edm.String" MaxLength="40"/>
+            </EntityType>
+            <EntityType Name="VilleType">
+                <Key>
+                    <PropertyRef Name="VILLE_ID"/>
+                </Key>
+                <Property Name="VILLE_ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="VILLE_NAME" Type="Edm.String" MaxLength="40"/>
+                <Property Name="VILLE_REGION_ID" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="BatimentType">
+                <Key>
+                    <PropertyRef Name="BATIMENT_ID"/>
+                </Key>
+                <Property Name="BATIMENT_ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="BATIMENT_NAME" Type="Edm.String" MaxLength="120"/>
+                <Property Name="BATIMENT_ADRESSE" Type="Edm.String" MaxLength="120"/>
+                <Property Name="BATIMENT_VILLE_ID" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="CelluleType">
+                <Key>
+                    <PropertyRef Name="CELLULE_ID"/>
+                </Key>
+                <Property Name="CELLULE_ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="CELLULE_NAME" Type="Edm.String" MaxLength="40"/>
+                <Property Name="CELLULE_ETAT" Type="Edm.Int32"/>
+                <Property Name="CELLULE_BATIMENT_ID" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="ImmoType">
+                <Key>
+                    <PropertyRef Name="IMMO_ID"/>
+                </Key>
+                <Property Name="IMMO_ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="IMMO_NAME" Type="Edm.String" MaxLength="40"/>
+                <Property Name="IMMO_NUMSERIE" Type="Edm.Int32"/>
+                <Property Name="IMMO_CODEBARRES" Type="Edm.Int32"/>
+                <Property Name="IMMO_ETAT" Type="Edm.Int32"/>
+                <Property Name="IMMO_DATESCAN" Type="Edm.String" MaxLength="40"/>
+                <Property Name="IMMO_CELLULE_ID" Type="Edm.Int32"/>
+                <Property Name="IMMO_TYPE_ID" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="TypeType">
+                <Key>
+                    <PropertyRef Name="TYPE_ID"/>
+                </Key>
+                <Property Name="TYPE_ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="TYPE_NAME" Type="Edm.String" MaxLength="40"/>
+                <Property Name="TYPE_FAMILLE_ID" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="FamilleType">
+                <Key>
+                    <PropertyRef Name="FAMILLE_ID"/>
+                </Key>
+                <Property Name="FAMILLE_ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="FAMILLE_NAME" Type="Edm.String" MaxLength="40"/>
+            </EntityType>
+            <EntityType Name="UserType">
+                <Key>
+                    <PropertyRef Name="USER_ID"/>
+                </Key>
+                <Property Name="USER_ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="USER_NAME" Type="Edm.String" MaxLength="40"/>
+                <Property Name="USER_PWD" Type="Edm.String" MaxLength="40"/>
+                <Property Name="USER_EMAIL" Type="Edm.String" MaxLength="40"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="40"/>
+            </EntityType>
+            <EntityType Name="RatingType">
+                <Key>
+                    <PropertyRef Name="RATING_ID"/>
+                </Key>
+                <Property Name="RATING_ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="RATING_GRADE" Type="Edm.Int32"/>
+                <Property Name="RATING_COMMENT" Type="Edm.String" MaxLength="40"/>
+                <Property Name="RATING_USER_ID" Type="Edm.Int32"/>
+            </EntityType>
+            <Association Name="ville_regionType">
+                <End Type="applisappe.services.RegionType" Role="RegionPrincipal" Multiplicity="1"/>
+                <End Type="applisappe.services.VilleType" Role="VilleDependent" Multiplicity="*"/>
+            </Association>
+            <Association Name="Batiment_VilleType">
+                <End Type="applisappe.services.VilleType" Role="VillePrincipal" Multiplicity="1"/>
+                <End Type="applisappe.services.BatimentType" Role="BatimentDependent" Multiplicity="*"/>
+            </Association>
+            <Association Name="Cellule_BatimentType">
+                <End Type="applisappe.services.BatimentType" Role="BatimentPrincipal" Multiplicity="1"/>
+                <End Type="applisappe.services.CelluleType" Role="CelluleDependent" Multiplicity="*"/>
+            </Association>
+            <Association Name="Immo_CelluleType">
+                <End Type="applisappe.services.CelluleType" Role="CellulePrincipal" Multiplicity="1"/>
+                <End Type="applisappe.services.ImmoType" Role="ImmoDependent" Multiplicity="*"/>
+            </Association>
+            <Association Name="Type_FamilleType">
+                <End Type="applisappe.services.FamilleType" Role="FamillePrincipal" Multiplicity="1"/>
+                <End Type="applisappe.services.TypeType" Role="TypeDependent" Multiplicity="*"/>
+            </Association>
+            <Association Name="Immo_TypeType">
+                <End Type="applisappe.services.TypeType" Role="TypePrincipal" Multiplicity="1"/>
+                <End Type="applisappe.services.ImmoType" Role="ImmoDependent" Multiplicity="*"/>
+            </Association>
+            <Association Name="Rating_UserType">
+                <End Type="applisappe.services.UserType" Role="UserPrincipal" Multiplicity="1"/>
+                <End Type="applisappe.services.RatingType" Role="RatingDependent" Multiplicity="1"/>
+            </Association>
+            <EntityContainer Name="applisappe" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="Region" EntityType="applisappe.services.RegionType"/>
+                <EntitySet Name="Ville" EntityType="applisappe.services.VilleType"/>
+                <EntitySet Name="Batiment" EntityType="applisappe.services.BatimentType"/>
+                <EntitySet Name="Cellule" EntityType="applisappe.services.CelluleType"/>
+                <EntitySet Name="Immo" EntityType="applisappe.services.ImmoType"/>
+                <EntitySet Name="Type" EntityType="applisappe.services.TypeType"/>
+                <EntitySet Name="Famille" EntityType="applisappe.services.FamilleType"/>
+                <EntitySet Name="User" EntityType="applisappe.services.UserType"/>
+                <EntitySet Name="Rating" EntityType="applisappe.services.RatingType"/>
+                <AssociationSet Name="ville_region" Association="applisappe.services.ville_regionType">
+                    <End Role="RegionPrincipal" EntitySet="Region"/>
+                    <End Role="VilleDependent" EntitySet="Ville"/>
+                </AssociationSet>
+                <AssociationSet Name="Batiment_Ville" Association="applisappe.services.Batiment_VilleType">
+                    <End Role="VillePrincipal" EntitySet="Ville"/>
+                    <End Role="BatimentDependent" EntitySet="Batiment"/>
+                </AssociationSet>
+                <AssociationSet Name="Cellule_Batiment" Association="applisappe.services.Cellule_BatimentType">
+                    <End Role="BatimentPrincipal" EntitySet="Batiment"/>
+                    <End Role="CelluleDependent" EntitySet="Cellule"/>
+                </AssociationSet>
+                <AssociationSet Name="Immo_Cellule" Association="applisappe.services.Immo_CelluleType">
+                    <End Role="CellulePrincipal" EntitySet="Cellule"/>
+                    <End Role="ImmoDependent" EntitySet="Immo"/>
+                </AssociationSet>
+                <AssociationSet Name="Type_Famille" Association="applisappe.services.Type_FamilleType">
+                    <End Role="FamillePrincipal" EntitySet="Famille"/>
+                    <End Role="TypeDependent" EntitySet="Type"/>
+                </AssociationSet>
+                <AssociationSet Name="Immo_Type" Association="applisappe.services.Immo_TypeType">
+                    <End Role="TypePrincipal" EntitySet="Type"/>
+                    <End Role="ImmoDependent" EntitySet="Immo"/>
+                </AssociationSet>
+                <AssociationSet Name="Rating_User" Association="applisappe.services.Rating_UserType">
+                    <End Role="UserPrincipal" EntitySet="User"/>
+                    <End Role="RatingDependent" EntitySet="Rating"/>
+                </AssociationSet>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
