@@ -26,6 +26,9 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 		_onSwitchChange: function(oEvent) {
 
 			oEvent = jQuery.extend(true, {}, oEvent);
+			var eventBus = sap.ui.getCore().getEventBus();
+			// 1. ChannelName, 2. EventName, 3. the data
+			eventBus.publish("MainDetailChannel", "onHomeNavigate", { geoloc : "true" });
 			return new Promise(function(fnResolve) {
 					fnResolve(true);
 				})
@@ -35,25 +38,13 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 
 					return new Promise(function(fnResolve) {
 
-						this.doNavigate("Batiments", oBindingContext, fnResolve, "");
+						this.doNavigate("Accueil", oBindingContext, fnResolve, "");
 					}.bind(this));
 
 				}.bind(this))
 				.then(function(result) {
 					if (result === false) {
 						return false;
-					} else {
-						return new Promise(function(fnResolve) {
-							var sTargetPos = "center top";
-							sTargetPos = (sTargetPos === "default") ? undefined : sTargetPos;
-							sap.m.MessageToast.show("Localisation effectuée", {
-								onClose: fnResolve,
-								duration: 1000 || 3000,
-								at: sTargetPos,
-								my: sTargetPos
-							});
-						});
-
 					}
 				}.bind(this)).catch(function(err) {
 					if (err !== undefined) {
