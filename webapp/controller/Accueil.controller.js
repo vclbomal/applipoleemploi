@@ -4,22 +4,22 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History"
 ], function(BaseController, MessageBox, Utilities, History) {
 	"use strict";
-	
-	function filterPositionsByPostCode  (postalCode, data) {
-			var filteredData = [];
-			for (var i = 0; i<data.length; i++){
-				if (data[i].postalCode === postalCode){
-					filteredData.push(data[i]);
-				}
+
+	function filterPositionsByPostCode(postalCode, data) {
+		var filteredData = [];
+		for (var i = 0; i < data.length; i++) {
+			if (data[i].postalCode === postalCode) {
+				filteredData.push(data[i]);
 			}
-			return filteredData;
 		}
-	
-	function deg2Rad  (deg) {
-	  return deg * Math.PI / 180;
+		return filteredData;
 	}
-	
-	function comparePositions (lat1, lon1, lat2, lon2) {
+
+	function deg2Rad(deg) {
+		return deg * Math.PI / 180;
+	}
+
+	function comparePositions(lat1, lon1, lat2, lon2) {
 		lat1 = deg2Rad(lat1);
 		lat2 = deg2Rad(lat2);
 		lon1 = deg2Rad(lon1);
@@ -30,8 +30,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 		var d = Math.sqrt(x * x + y * y) * R;
 		return d;
 	}
-	
-	function buildToast (){
+
+	function buildToast() {
 		return new Promise(function(fnResolve) {
 			var sTargetPos = "center top";
 			sTargetPos = (sTargetPos === "default") ? undefined : sTargetPos;
@@ -43,80 +43,107 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			});
 		});
 	}
-	
-	function nearestOffice (latitude, longitude, data) {
+
+	function nearestOffice(latitude, longitude, data) {
 		var mindif = 99999;
 		var closest;
 		for (var index = 0; index < data.length; ++index) {
-	    	var dif = this.comparePositions(latitude, longitude, data[index][1], data[index][2]);
-	    	if (dif < mindif) {
-	    		closest = index;
-	    		mindif = dif;
-	    	}
+			var dif = this.comparePositions(latitude, longitude, data[index][1], data[index][2]);
+			if (dif < mindif) {
+				closest = index;
+				mindif = dif;
+			}
 		}
 		buildToast();
-		return (data[closest]); 
+		return (data[closest]);
 	}
-	
-	function showDialog(context, show){
+
+	function showDialog(context, show) {
 		var oDialog = context.byId("BusyDialog");
-		if(show){
-		oDialog.open();
+		if (show) {
+			oDialog.open();
 		} else {
 			oDialog.close();
 		}
 	}
-	
-	function reverseGeoLoc (position, context){
+
+	function reverseGeoLoc(position, context) {
 		var lat = position.coords.latitude;
 		var long = position.coords.longitude;
 		$.ajax({
-			url : "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + ","
-			+ long + "&key=" + "AIzaSyACL8sYHA7uHdJiHQ6QKIvcqCrTyvLXW38", 
-			type : "GET",
-			success : function(result, statut){
-        		var postalCode = result.results[0].address_components[6].long_name;
-        		console.log("CODE POSTALE : " + postalCode);
-        		//var filteredList = filterPositionsByPostCode(postalCode, data);
-        		var filteredList = [];
-        		return nearestOffice(lat, long, filteredList);
-	    	},
-		    error : function(resultat, statut, error){
+			url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=" +
+				"AIzaSyACL8sYHA7uHdJiHQ6QKIvcqCrTyvLXW38",
+			type: "GET",
+			success: function(result, statut) {
+				var postalCode = result.results[0].address_components[6].long_name;
+				console.log("CODE POSTALE : " + postalCode);
+				//var filteredList = filterPositionsByPostCode(postalCode, data);
+				var filteredList = [];
+				return nearestOffice(lat, long, filteredList);
+			},
+			error: function(resultat, statut, error) {
 				MessageBox.error("Erreur lors de la lecture de la position");
-		    },
-		    complete: function(){
-		    	showDialog(context, false);
-		    }
+			},
+			complete: function() {
+				showDialog(context, false);
+			}
 		});
 	}
-	
-	function showError  (error) {
-	    switch(error.code) {
-	        case error.PERMISSION_DENIED:
-	            MessageBox.error("Merci d'autoriser la géolocalisation.");
-	            break;
-	        case error.POSITION_UNAVAILABLE:
-	            MessageBox.error("Les informations de géolocalisation sont indisponibles.");
-	            break;
-	        case error.TIMEOUT:
-	            MessageBox.error("La requête de géolocalisation a expiré.");
-	            break;
-	        case error.UNKNOWN_ERROR:
-	            MessageBox.error("Une erreur s'est produite.");
-	            break;
-	    }
+
+	function buildErrorDialog(message, onCloseFunction) {
+		MessageBox.error(message, {
+			icon: MessageBox.Icon.ERROR,
+			title: "Error",
+			actions: [sap.m.MessageBox.Action.CLOSE],
+			onClose: onCloseFunction
+		});
 	}
-	
-	function getUserLoc (context){
-		 if (navigator.geolocation) {
-        	navigator.geolocation.getCurrentPosition(function(position){
-        		return reverseGeoLoc(position, context);
-        	}, showError);
-	    } else {
-	        MessageBox.error("La géolocation n'est pas supportée par ce navigateur.");
-	    }
+
+	function navTo(oEvent, context, target) {
+		var router = sap.ui.core.UIComponent.getRouterFor(context);
+		return router.navTo(target);
 	}
-	
+
+	function showError(error, context) {
+		showDialog(context, false);
+		switch (error.code) {
+			case error.PERMISSION_DENIED:
+				buildErrorDialog("Merci d'autoriser la géolocalisation.", function(oEvent) {
+					return navTo(oEvent, context, "Regions");
+				});
+				break;
+			case error.POSITION_UNAVAILABLE:
+				buildErrorDialog("Les informations de géolocalisation sont indisponibles.", function(oEvent) {
+					return navTo(oEvent, context, "Regions");
+				});
+				break;
+			case error.TIMEOUT:
+				buildErrorDialog("La requête de géolocalisation a expiré.", function(oEvent) {
+					return navTo(oEvent, context, "Regions");
+				});
+				break;
+			case error.UNKNOWN_ERROR:
+				buildErrorDialog("Une erreur s'est produite.", function(oEvent) {
+					return navTo(oEvent, context, "Regions");
+				});
+				break;
+		}
+	}
+
+	function getUserLoc(context) {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				return reverseGeoLoc(position, context);
+			}, function(error) {
+				return showError(error, context);
+			});
+		} else {
+			buildErrorDialog("La géolocation n'est pas supportée par ce navigateur.", function(oEvent) {
+				return navTo(oEvent, context, "Regions");
+			});
+		}
+	}
+
 	return BaseController.extend("com.sap.build.standard.buildPoleEmploiEpf.controller.Accueil", {
 		handleRouteMatched: function(oEvent) {
 
@@ -377,7 +404,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 		},
 		_onButtonPress7: function(oEvent) {
 			var oBindingContext = oEvent.getSource().getBindingContext();
-
 			return new Promise(function(fnResolve) {
 				this.doNavigate("Regions", oBindingContext, fnResolve, "");
 			}.bind(this)).catch(function(err) {
@@ -392,7 +418,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			this.oRouter.getTarget("Accueil").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
 			this.getPos();
 		},
-		getPos: function(){
+		getPos: function() {
 			showDialog(this, true);
 			getUserLoc(this);
 		}
