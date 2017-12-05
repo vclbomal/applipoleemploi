@@ -5,25 +5,25 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 ], function(BaseController, MessageBox, Utilities, History) {
 	"use strict";
 	
-	function filterPositionsByPostCode(postalCode, data) {
-		var filteredData = [];
-		for (var i = 0; i<data.length; i++){
-			if (data[i].postalCode === postalCode){
-				filteredData.push(data[i]);
+	function filterPositionsByPostCode  (postalCode, data) {
+			var filteredData = [];
+			for (var i = 0; i<data.length; i++){
+				if (data[i].postalCode === postalCode){
+					filteredData.push(data[i]);
+				}
 			}
+			return filteredData;
 		}
-		return filteredData;
-	}
 	
-	function Deg2Rad(deg) {
+	function deg2Rad  (deg) {
 	  return deg * Math.PI / 180;
 	}
 	
-	function comparePositions(lat1, lon1, lat2, lon2) {
-		lat1 = Deg2Rad(lat1);
-		lat2 = Deg2Rad(lat2);
-		lon1 = Deg2Rad(lon1);
-		lon2 = Deg2Rad(lon2);
+	function comparePositions (lat1, lon1, lat2, lon2) {
+		lat1 = deg2Rad(lat1);
+		lat2 = deg2Rad(lat2);
+		lon1 = deg2Rad(lon1);
+		lon2 = deg2Rad(lon2);
 		var R = 6371; // km
 		var x = (lon2 - lon1) * Math.cos((lat1 + lat2) / 2);
 		var y = (lat2 - lat1);
@@ -31,21 +31,43 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 		return d;
 	}
 	
-	function nearestOffice(latitude, longitude, data) {
+	function buildToast (){
+		return new Promise(function(fnResolve) {
+			var sTargetPos = "center top";
+			sTargetPos = (sTargetPos === "default") ? undefined : sTargetPos;
+			sap.m.MessageToast.show("Localisation effectuée", {
+				onClose: fnResolve,
+				duration: 1000 || 3000,
+				at: sTargetPos,
+				my: sTargetPos
+			});
+		});
+	}
+	
+	function nearestOffice (latitude, longitude, data) {
 		var mindif = 99999;
 		var closest;
-	
 		for (var index = 0; index < data.length; ++index) {
-	    	var dif = comparePositions(latitude, longitude, data[index][1], data[index][2]);
+	    	var dif = this.comparePositions(latitude, longitude, data[index][1], data[index][2]);
 	    	if (dif < mindif) {
 	    		closest = index;
 	    		mindif = dif;
 	    	}
 		}
+		buildToast();
 		return (data[closest]); 
 	}
 	
-	function reverseGeoLoc(position){
+	function showDialog(context, show){
+		var oDialog = context.byId("BusyDialog");
+		if(show){
+		oDialog.open();
+		} else {
+			oDialog.close();
+		}
+	}
+	
+	function reverseGeoLoc (position, context){
 		var lat = position.coords.latitude;
 		var long = position.coords.longitude;
 		$.ajax({
@@ -56,23 +78,44 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
         		var postalCode = result.results[0].address_components[6].long_name;
         		console.log("CODE POSTALE : " + postalCode);
         		//var filteredList = filterPositionsByPostCode(postalCode, data);
-        		//return nearestOffice(lat, long, filteredList);
+        		var filteredList = [];
+        		return nearestOffice(lat, long, filteredList);
 	    	},
 		    error : function(resultat, statut, error){
 				MessageBox.error("Erreur lors de la lecture de la position");
-		     }
+		    },
+		    complete: function(){
+		    	showDialog(context, false);
+		    }
 		});
 	}
 	
-	function getUserLoc(){
+	function showError  (error) {
+	    switch(error.code) {
+	        case error.PERMISSION_DENIED:
+	            MessageBox.error("Merci d'autoriser la géolocalisation.");
+	            break;
+	        case error.POSITION_UNAVAILABLE:
+	            MessageBox.error("Les informations de géolocalisation sont indisponibles.");
+	            break;
+	        case error.TIMEOUT:
+	            MessageBox.error("La requête de géolocalisation a expiré.");
+	            break;
+	        case error.UNKNOWN_ERROR:
+	            MessageBox.error("Une erreur s'est produite.");
+	            break;
+	    }
+	}
+	
+	function getUserLoc (context){
 		 if (navigator.geolocation) {
-        	navigator.geolocation.getCurrentPosition(reverseGeoLoc);
+        	navigator.geolocation.getCurrentPosition(function(position){
+        		return reverseGeoLoc(position, context);
+        	}, showError);
 	    } else {
 	        MessageBox.error("La géolocation n'est pas supportée par ce navigateur.");
 	    }
 	}
-	
-	
 	
 	return BaseController.extend("com.sap.build.standard.buildPoleEmploiEpf.controller.Accueil", {
 		handleRouteMatched: function(oEvent) {
@@ -332,12 +375,26 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			});
 
 		},
+		_onButtonPress7: function(oEvent) {
+			var oBindingContext = oEvent.getSource().getBindingContext();
+
+			return new Promise(function(fnResolve) {
+				this.doNavigate("Regions", oBindingContext, fnResolve, "");
+			}.bind(this)).catch(function(err) {
+				if (err !== undefined) {
+					MessageBox.error(err.message);
+				}
+			});
+		},
 		onInit: function() {
-			getUserLoc();
 			this.mBindingOptions = {};
 			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			this.oRouter.getTarget("Accueil").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
-
+			this.getPos();
+		},
+		getPos: function(){
+			showDialog(this, true);
+			getUserLoc(this);
 		}
 	});
 }, /* bExport= */ true);
