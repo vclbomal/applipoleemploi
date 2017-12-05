@@ -23,12 +23,17 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			}
 
 		},
-		_onSwitchChange: function(oEvent) {
+		_onLocBtnClick: function(oEvent) {
 
 			oEvent = jQuery.extend(true, {}, oEvent);
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("Accueil", {
+		    	context: "geoloc"
+			});
+			/*
 			var eventBus = sap.ui.getCore().getEventBus();
 			// 1. ChannelName, 2. EventName, 3. the data
-			eventBus.publish("MainDetailChannel", "onHomeNavigate", { geoloc : "true" });
+			eventBus.publish("MainDetailChannel", "onNavigate", { geoloc : "true" });
 			return new Promise(function(fnResolve) {
 					fnResolve(true);
 				})
@@ -50,7 +55,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 					if (err !== undefined) {
 						MessageBox.error(err.message);
 					}
-				});
+				});*/
 		},
 		doNavigate: function(sRouteName, oBindingContext, fnPromiseResolve, sViaRelation) {
 

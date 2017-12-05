@@ -146,10 +146,12 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 
 	return BaseController.extend("com.sap.build.standard.buildPoleEmploiEpf.controller.Accueil", {
 		handleRouteMatched: function(oEvent) {
-
 			var oParams = {};
 
 			if (oEvent.mParameters.data.context) {
+				if(oEvent.mParameters.data.context === "geoloc"){
+					this.getPos();
+				}
 				this.sContext = oEvent.mParameters.data.context;
 				var oPath;
 				if (this.sContext) {
@@ -416,7 +418,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			this.mBindingOptions = {};
 			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			this.oRouter.getTarget("Accueil").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
-			this.getPos();
 		},
 		getPos: function() {
 			showDialog(this, true);

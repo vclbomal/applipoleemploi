@@ -9,11 +9,10 @@
 					<m:VBox alignItems="Stretch" direction="Column" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
 						visible="true" displayInline="false">
 						<m:items>
-							<m:Button state="false" text="Localiser " icon="sap-icon://functional-location" type="Default" enabled="true" visible="true" press="_onSwitchChange"/>
+							<m:Button state="false" text="Localiser " icon="sap-icon://functional-location" type="Default" enabled="true" visible="true" press="_onLocBtnClick"/>
 						</m:items>
 						<m:layoutData/>
 					</m:VBox>
-					
 				</m:items>
 				<m:layoutData/>
 			</m:HBox>
