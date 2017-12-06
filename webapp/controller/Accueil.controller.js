@@ -5,156 +5,15 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 ], function(BaseController, MessageBox, Utilities, History) {
 	"use strict";
 
-	function filterPositionsByPostCode(postalCode, data) {
-		var filteredData = [];
-		for (var i = 0; i < data.length; i++) {
-			if (data[i].postalCode === postalCode) {
-				filteredData.push(data[i]);
-			}
-		}
-		return filteredData;
-	}
-
-	function deg2Rad(deg) {
-		return deg * Math.PI / 180;
-	}
-
-	function comparePositions(lat1, lon1, lat2, lon2) {
-		lat1 = deg2Rad(lat1);
-		lat2 = deg2Rad(lat2);
-		lon1 = deg2Rad(lon1);
-		lon2 = deg2Rad(lon2);
-		var R = 6371; // km
-		var x = (lon2 - lon1) * Math.cos((lat1 + lat2) / 2);
-		var y = (lat2 - lat1);
-		var d = Math.sqrt(x * x + y * y) * R;
-		return d;
-	}
-
-	function buildToast() {
-		return new Promise(function(fnResolve) {
-			var sTargetPos = "center top";
-			sTargetPos = (sTargetPos === "default") ? undefined : sTargetPos;
-			sap.m.MessageToast.show("Localisation effectuée", {
-				onClose: fnResolve,
-				duration: 1000 || 3000,
-				at: sTargetPos,
-				my: sTargetPos
-			});
-		});
-	}
-
-	function nearestOffice(latitude, longitude, data) {
-		var mindif = 99999;
-		var closest;
-		for (var index = 0; index < data.length; ++index) {
-			var dif = this.comparePositions(latitude, longitude, data[index][1], data[index][2]);
-			if (dif < mindif) {
-				closest = index;
-				mindif = dif;
-			}
-		}
-		buildToast();
-		return (data[closest]);
-	}
-
-	function showDialog(context, show) {
-		var oDialog = context.byId("BusyDialog");
-		if (show) {
-			oDialog.open();
-		} else {
-			oDialog.close();
-		}
-	}
-
-	function reverseGeoLoc(position, context) {
-		var lat = position.coords.latitude;
-		var long = position.coords.longitude;
-		$.ajax({
-			url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=" +
-				"AIzaSyACL8sYHA7uHdJiHQ6QKIvcqCrTyvLXW38",
-			type: "GET",
-			success: function(result, statut) {
-				var postalCode = result.results[0].address_components[6].long_name;
-				console.log("CODE POSTALE : " + postalCode);
-				//var filteredList = filterPositionsByPostCode(postalCode, data);
-				var filteredList = [];
-				return nearestOffice(lat, long, filteredList);
-			},
-			error: function(resultat, statut, error) {
-				MessageBox.error("Erreur lors de la lecture de la position");
-			},
-			complete: function() {
-				showDialog(context, false);
-			}
-		});
-	}
-
-	function buildErrorDialog(message, onCloseFunction) {
-		MessageBox.error(message, {
-			icon: MessageBox.Icon.ERROR,
-			title: "Error",
-			actions: [sap.m.MessageBox.Action.CLOSE],
-			onClose: onCloseFunction
-		});
-	}
-
-	function navTo(oEvent, context, target) {
-		var router = sap.ui.core.UIComponent.getRouterFor(context);
-		return router.navTo(target);
-	}
-
-	function showError(error, context) {
-		showDialog(context, false);
-		switch (error.code) {
-			case error.PERMISSION_DENIED:
-				buildErrorDialog("Merci d'autoriser la géolocalisation.", function(oEvent) {
-					return navTo(oEvent, context, "Regions");
-				});
-				break;
-			case error.POSITION_UNAVAILABLE:
-				buildErrorDialog("Les informations de géolocalisation sont indisponibles.", function(oEvent) {
-					return navTo(oEvent, context, "Regions");
-				});
-				break;
-			case error.TIMEOUT:
-				buildErrorDialog("La requête de géolocalisation a expiré.", function(oEvent) {
-					return navTo(oEvent, context, "Regions");
-				});
-				break;
-			case error.UNKNOWN_ERROR:
-				buildErrorDialog("Une erreur s'est produite.", function(oEvent) {
-					return navTo(oEvent, context, "Regions");
-				});
-				break;
-		}
-	}
-
-	function getUserLoc(context) {
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(function(position) {
-				return reverseGeoLoc(position, context);
-			}, function(error) {
-				return showError(error, context);
-			});
-		} else {
-			buildErrorDialog("La géolocation n'est pas supportée par ce navigateur.", function(oEvent) {
-				return navTo(oEvent, context, "Regions");
-			});
-		}
-	}
-
 	return BaseController.extend("com.sap.build.standard.buildPoleEmploiEpf.controller.Accueil", {
 		handleRouteMatched: function(oEvent) {
 			var oParams = {};
 
 			if (oEvent.mParameters.data.context) {
-				if(oEvent.mParameters.data.context === "geoloc"){
-					this.getPos();
-				}
 				this.sContext = oEvent.mParameters.data.context;
 				var oPath;
 				if (this.sContext) {
+					
 					oPath = {
 						path: "/" + this.sContext,
 						parameters: oParams
@@ -418,10 +277,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			this.mBindingOptions = {};
 			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			this.oRouter.getTarget("Accueil").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
-		},
-		getPos: function() {
-			showDialog(this, true);
-			getUserLoc(this);
 		}
 	});
 }, /* bExport= */ true);

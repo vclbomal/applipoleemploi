@@ -5,6 +5,156 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 ], function(BaseController, MessageBox, Utilities, History) {
 	"use strict";
 
+	function showDialog(context, show) {
+		var oDialog = context.byId("BusyDialog");
+		if (show) {
+			oDialog.open();
+		} else {
+			oDialog.close();
+		}
+	}
+
+	function deg2Rad(deg) {
+		return deg * Math.PI / 180;
+	}
+
+	function comparePositions(lat1, lon1, lat2, lon2) {
+		lat1 = deg2Rad(lat1);
+		lat2 = deg2Rad(lat2);
+		lon1 = deg2Rad(lon1);
+		lon2 = deg2Rad(lon2);
+		var R = 6371; // km
+		var x = (lon2 - lon1) * Math.cos((lat1 + lat2) / 2);
+		var y = (lat2 - lat1);
+		var d = Math.sqrt(x * x + y * y) * R;
+		return d;
+	}
+
+	function buildToast() {
+		return new Promise(function(fnResolve) {
+			var sTargetPos = "center top";
+			sTargetPos = (sTargetPos === "default") ? undefined : sTargetPos;
+			sap.m.MessageToast.show("Localisation effectuée", {
+				onClose: fnResolve,
+				duration: 1000 || 3000,
+				at: sTargetPos,
+				my: sTargetPos
+			});
+		});
+	}
+
+	function nearestOffice(latitude, longitude, data) {
+		debugger;
+		var mindif = 99999;
+		var closest;
+		for (var index = 0; index < data.length; ++index) {
+			var dif = comparePositions(latitude, longitude, data[index][1], data[index][2]);
+			if (dif < mindif) {
+				closest = index;
+				mindif = dif;
+			}
+		}
+		if(!closest){
+			closest = 0;
+		}
+		buildToast();
+		debugger;
+		sap.ui.getCore().AppContext.officeId =  (data[closest]).BATIMENT_ID;
+		showDialog(context, false);
+	}
+
+	function filterPositionsByPostCode(position, postalCode) {
+		var lat = position.coords.latitude;
+		var long = position.coords.longitude;
+		$.ajax({
+			url: "/datasappe/applisappe/services/"+
+			"applisappe.xsodata/Batiment?$filter=BATIMENT_VILLE_ID eq " + postalCode,
+			type: "GET",
+			success: function(filteredData, status) {
+				debugger;
+				return nearestOffice(lat, long, filteredData.d.results);
+			},
+			error: function(resultat, status, error) {
+				MessageBox.error("Erreur : "+ error.message);
+			}, 
+			dataType: "json"
+		});
+	}
+
+	function reverseGeoLoc(position, context) {
+		var lat = position.coords.latitude;
+		var long = position.coords.longitude;
+		$.ajax({
+			url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=" +
+				"AIzaSyACL8sYHA7uHdJiHQ6QKIvcqCrTyvLXW38",
+			type: "GET",
+			success: function(result, statut) {
+				var postalCode = result.results[0].address_components[6].long_name;
+				filterPositionsByPostCode(position, postalCode);
+			},
+			error: function(resultat, statut, error) {
+				MessageBox.error("Erreur lors de la lecture de la position");
+			},
+			complete: function() {
+				showDialog(context, false);
+			}
+		});
+	}
+
+	function buildErrorDialog(message, onCloseFunction) {
+		MessageBox.error(message, {
+			icon: MessageBox.Icon.ERROR,
+			title: "Error",
+			actions: [sap.m.MessageBox.Action.CLOSE],
+			onClose: onCloseFunction
+		});
+	}
+
+	function navTo(oEvent, context, target) {
+		var router = sap.ui.core.UIComponent.getRouterFor(context);
+		return router.navTo(target);
+	}
+
+	function showError(error, context) {
+		showDialog(context, false);
+		switch (error.code) {
+			case error.PERMISSION_DENIED:
+				buildErrorDialog("Merci d'autoriser la géolocalisation.", function(oEvent) {
+					return navTo(oEvent, context, "Regions");
+				});
+				break;
+			case error.POSITION_UNAVAILABLE:
+				buildErrorDialog("Les informations de géolocalisation sont indisponibles.", function(oEvent) {
+					return navTo(oEvent, context, "Regions");
+				});
+				break;
+			case error.TIMEOUT:
+				buildErrorDialog("La requête de géolocalisation a expiré.", function(oEvent) {
+					return navTo(oEvent, context, "Regions");
+				});
+				break;
+			case error.UNKNOWN_ERROR:
+				buildErrorDialog("Une erreur s'est produite.", function(oEvent) {
+					return navTo(oEvent, context, "Regions");
+				});
+				break;
+		}
+	}
+
+	function getUserLoc(context) {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				return reverseGeoLoc(position, context);
+			}, function(error) {
+				return showError(error, context);
+			});
+		} else {
+			buildErrorDialog("La géolocation n'est pas supportée par ce navigateur.", function(oEvent) {
+				return navTo(oEvent, context, "Regions");
+			});
+		}
+	}
+
 	return BaseController.extend("com.sap.build.standard.buildPoleEmploiEpf.controller.Regions", {
 		handleRouteMatched: function(oEvent) {
 
@@ -24,38 +174,11 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 
 		},
 		_onLocBtnClick: function(oEvent) {
-
+			this.getPos();
 			oEvent = jQuery.extend(true, {}, oEvent);
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("Accueil", {
-		    	context: "geoloc"
-			});
-			/*
-			var eventBus = sap.ui.getCore().getEventBus();
-			// 1. ChannelName, 2. EventName, 3. the data
-			eventBus.publish("MainDetailChannel", "onNavigate", { geoloc : "true" });
-			return new Promise(function(fnResolve) {
-					fnResolve(true);
-				})
-				.then(function(result) {
-
-					var oBindingContext = oEvent.getSource().getBindingContext();
-
-					return new Promise(function(fnResolve) {
-
-						this.doNavigate("Accueil", oBindingContext, fnResolve, "");
-					}.bind(this));
-
-				}.bind(this))
-				.then(function(result) {
-					if (result === false) {
-						return false;
-					}
-				}.bind(this)).catch(function(err) {
-					if (err !== undefined) {
-						MessageBox.error(err.message);
-					}
-				});*/
+			oRouter.navTo("Accueil", {});
+			
 		},
 		doNavigate: function(sRouteName, oBindingContext, fnPromiseResolve, sViaRelation) {
 
@@ -262,11 +385,13 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 
 		},
 		onInit: function() {
-
 			this.mBindingOptions = {};
 			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			this.oRouter.getTarget("Regions").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
-
+		},
+		getPos: function() {
+			showDialog(this, true);
+			getUserLoc(this);
 		}
 	});
 }, /* bExport= */ true);
