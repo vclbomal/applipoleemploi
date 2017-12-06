@@ -32,6 +32,15 @@
                 }).placeAt("app");
 
 			});
+			
+			//global variables
+			sap.ui.getCore().AppContext = new Object ();
+			sap.ui.getCore().AppContext.regionId = 0;
+			sap.ui.getCore().AppContext.villeId = 0;
+			sap.ui.getCore().AppContext.officeId = 0;
+			sap.ui.getCore().AppContext.celluleId = 0;
+			sap.ui.getCore().AppContext.immoId = 0;
+			
 		</script>
 	</head>
 
