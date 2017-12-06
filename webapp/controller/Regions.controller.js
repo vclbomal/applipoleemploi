@@ -44,7 +44,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 	}
 
 	function nearestOffice(latitude, longitude, data) {
-		debugger;
 		var mindif = 99999;
 		var closest;
 		for (var index = 0; index < data.length; ++index) {
@@ -58,7 +57,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			closest = 0;
 		}
 		buildToast();
-		debugger;
 		sap.ui.getCore().AppContext.officeId =  (data[closest]).BATIMENT_ID;
 		showDialog(context, false);
 	}
@@ -71,7 +69,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			"applisappe.xsodata/Batiment?$filter=BATIMENT_VILLE_ID eq " + postalCode,
 			type: "GET",
 			success: function(filteredData, status) {
-				debugger;
 				return nearestOffice(lat, long, filteredData.d.results);
 			},
 			error: function(resultat, status, error) {
