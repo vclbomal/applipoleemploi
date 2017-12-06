@@ -57,9 +57,14 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			closest = 0;
 		}
 		buildToast();
-		sap.ui.getCore().AppContext.officeId =  (data[closest]).BATIMENT_ID;
-		var oRouter = sap.ui.core.UIComponent.getRouterFor(context);
-			oRouter.navTo("Accueil", {});
+		if(data[closest]){
+			sap.ui.getCore().AppContext.officeId =  (data[closest]).BATIMENT_ID;
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(context);
+				oRouter.navTo("Accueil", {});
+		}
+		else{
+			MessageBox.error("Erreur lors de la lecture de la position, merci de la saisir manuellement");
+		}
 	}
 
 	function filterPositionsByPostCode(position, postalCode, context) {
