@@ -43,7 +43,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 		});
 	}
 
-	function nearestOffice(latitude, longitude, data) {
+	function nearestOffice(latitude, longitude, data, context) {
 		var mindif = 99999;
 		var closest;
 		for (var index = 0; index < data.length; ++index) {
@@ -58,10 +58,11 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 		}
 		buildToast();
 		sap.ui.getCore().AppContext.officeId =  (data[closest]).BATIMENT_ID;
-		showDialog(context, false);
+		var oRouter = sap.ui.core.UIComponent.getRouterFor(context);
+			oRouter.navTo("Accueil", {});
 	}
 
-	function filterPositionsByPostCode(position, postalCode) {
+	function filterPositionsByPostCode(position, postalCode, context) {
 		var lat = position.coords.latitude;
 		var long = position.coords.longitude;
 		$.ajax({
@@ -69,7 +70,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			"applisappe.xsodata/Batiment?$filter=BATIMENT_VILLE_ID eq " + postalCode,
 			type: "GET",
 			success: function(filteredData, status) {
-				return nearestOffice(lat, long, filteredData.d.results);
+				return nearestOffice(lat, long, filteredData.d.results, context);
 			},
 			error: function(resultat, status, error) {
 				MessageBox.error("Erreur : "+ error.message);
@@ -87,7 +88,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			type: "GET",
 			success: function(result, statut) {
 				var postalCode = result.results[0].address_components[6].long_name;
-				filterPositionsByPostCode(position, postalCode);
+				filterPositionsByPostCode(position, postalCode, context);
 			},
 			error: function(resultat, statut, error) {
 				MessageBox.error("Erreur lors de la lecture de la position");
@@ -173,8 +174,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 		_onLocBtnClick: function(oEvent) {
 			this.getPos();
 			oEvent = jQuery.extend(true, {}, oEvent);
-			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("Accueil", {});
+			
 			
 		},
 		doNavigate: function(sRouteName, oBindingContext, fnPromiseResolve, sViaRelation) {
