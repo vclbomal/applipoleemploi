@@ -5,6 +5,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 ], function(BaseController, MessageBox, Utilities, History) {
 	"use strict";
 
+	
+
 	return BaseController.extend("com.sap.build.standard.buildPoleEmploiEpf.controller.Accueil", {
 		handleRouteMatched: function(oEvent) {
 			var oParams = {};
@@ -22,6 +24,52 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 				}
 			}
 
+		},
+		displayCells: function (oData){
+        	var that = this;
+        	var model = new sap.ui.model.json.JSONModel();
+        	for(var i = 0; i < oData.length; i++){
+        		model.setData(oData[i]);
+	        	that.getView().setModel(model);
+	        	sap.ui.getCore().setModel(model, "objet" + i);
+	        	var cellName = oData[i].CELLULE_NAME;
+	
+	        	var url = "https://www.youtube.com/watch?v=" + cellName;
+	
+	        	var idCell = "cell" + i;
+	        	that.getView().byId(idCell).setTitle(cellName);
+        	}
+        	
+		},
+		filterCellByOffice: function () {
+			var that = this;
+			$.ajax({
+				url: "/datasappe/applisappe/services/"+
+				"applisappe.xsodata/Cellule?$filter=CELLULE_BATIMENT_ID eq " + sap.ui.getCore().AppContext.officeId,
+				type: "GET",
+				success: function(filteredData, status) {
+					that.displayCells(filteredData.d.results);
+				},
+				error: function(resultat, status, error) {
+					MessageBox.error("Erreur : "+ error.message);
+				}, 
+				dataType: "json"
+			});
+		},
+		displayOfficeName: function(){
+			var that = this;
+			$.ajax({
+			url: "/datasappe/applisappe/services/"+
+			"applisappe.xsodata/Batiment?$filter=BATIMENT_ID eq " + sap.ui.getCore().AppContext.officeId,
+			type: "GET",
+			success: function(data, status) {
+				that.getView().byId("siteName").setText(data.d.results[0].BATIMENT_NAME);
+			},
+			error: function(resultat, status, error) {
+				MessageBox.error("Erreur : "+ error.message);
+			}, 
+			dataType: "json"
+		});
 		},
 		_onPageNavButtonPress4: function(oEvent) {
 
@@ -277,6 +325,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			this.mBindingOptions = {};
 			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			this.oRouter.getTarget("Accueil").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
+			this.displayOfficeName();
+			this.filterCellByOffice();
 		}
 	});
 }, /* bExport= */ true);

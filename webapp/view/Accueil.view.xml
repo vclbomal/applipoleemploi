@@ -19,7 +19,7 @@ xmlns:core="sap.ui.core" xmlns:m="sap.m" xmlns:html="http://www.w3.org/1999/xhtm
 							<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
 								visible="true" displayInline="false">
 								<m:items>
-									<m:Link text="Agence Montreuil-sous-Bois" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true" visible="true"
+									<m:Link id="siteName" text="Agence Montreuil-sous-Bois" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true" visible="true"
 										emphasized="false" subtle="false" press="_onButtonPress7"/>
 								</m:items>
 								<m:layoutData/>
