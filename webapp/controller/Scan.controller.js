@@ -130,6 +130,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 
 		},
 		_onScanButtonPress: function() {
+			var that = this;
 			loadCameraView();
 			var liveStreamConfig = { //See Quagga documentation for more details
 				inputStream: {
@@ -200,6 +201,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 					var input = $(".barcode input");
 					input["0"].value = result.codeResult.code;
 					Quagga.stop();
+					that.getView().byId("barcodeValue").addStyleClass("inputOk");
 				}
 			});
 		},

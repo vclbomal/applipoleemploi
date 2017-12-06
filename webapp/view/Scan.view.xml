@@ -29,7 +29,7 @@
 										visible="true" displayInline="false">
 										<m:items>
 											<m:Label text="Code-barres :" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
-											<m:Input class="barcode" placeholder="123456789" type="Number" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false"
+											<m:Input id="barcodeValue" class="barcode" placeholder="123456789" type="Number" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false"
 												maxLength="0"/>
 										</m:items>
 										<m:layoutData/>
