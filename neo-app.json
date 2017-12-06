@@ -24,7 +24,8 @@
       "path": "/datasappe",
       "target": {
         "type": "destination",
-        "name": "datasappe"
+        "name": "datasappe",
+        "entryPath": "/"
       },
       "description": "Connexion bdd sap pole emploi"
     }
