@@ -21,7 +21,49 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 					this.getView().bindObject(oPath);
 				}
 			}
-
+			sap.ui.getCore().AppContext.getCurrentCellInventory();
+			this.displayCellInventory();
+			this.getExpectedLength();
+		},
+		displayCellInventory: function(){
+			var model = new sap.ui.model.json.JSONModel();
+        	var list = this.getView().byId("immoList");
+        	var listImmos = sap.ui.getCore().AppContext.currentCellInventory.listImmo;
+        	model.setData({immos: listImmos});
+        	list.setModel(model, "immoModel");
+        	var relocalisedCount = 0;
+        	var newCount = 0;
+        	for(var i = 0; i < listImmos.length; i++){
+        		var immo = listImmos[i];
+        		if (immo.relocalise){
+        			relocalisedCount++;
+        		}
+        		if(immo.newBarcode){
+        			newCount++;
+        		}
+        	}
+        	this.getView().byId("relocalised").setNumber(relocalisedCount);
+        	this.getView().byId("added").setNumber(newCount);
+        	this.getView().byId("inventoryLength").setNumber(listImmos.length);
+		},
+		getExpectedLength: function(){
+			var that = this;
+			$.ajax({
+				type: "GET",
+				url: "/datasappe/applisappe/services/applisappe.xsodata/Immo?$filter=IMMO_CELLULE_ID eq "
+				+ sap.ui.getCore().AppContext.celluleId,
+				cache: false,
+				xhrFields: {withCredentials: true},
+				dataType: "json",
+				error : function(msg, textStatus,ree) {
+				},
+				success : function(data) {
+					that.displayExpectedLength(data.d.results);
+				}
+			});
+		},
+		displayExpectedLength: function(data){
+			this.getView().byId("expectedLength").setNumber(data.length);
 		},
 		_onPageNavButtonPress5: function(oEvent) {
 

@@ -23,22 +23,23 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 					this.getView().bindObject(oPath);
 				}
 			}
-
+			this.displayOfficeName();
+			this.filterCellByOffice();
 		},
 		displayCells: function (oData){
         	var that = this;
         	var model = new sap.ui.model.json.JSONModel();
+        	var list = that.getView().byId("cellList");
+        	var cells = [];
         	for(var i = 0; i < oData.length; i++){
-        		model.setData(oData[i]);
-	        	that.getView().setModel(model);
-	        	sap.ui.getCore().setModel(model, "objet" + i);
-	        	var cellName = oData[i].CELLULE_NAME;
-	
-	        	var url = "https://www.youtube.com/watch?v=" + cellName;
-	
-	        	var idCell = "cell" + i;
-	        	that.getView().byId(idCell).setTitle(cellName);
+        		cells.push({
+        			key: oData[i].CELLULE_ID,
+        			name: oData[i].CELLULE_NAME,
+        			state: oData[i].CELLULE_ETAT
+        		});
         	}
+        	model.setData({cells: cells});
+        	list.setModel(model, "cellsModel");
         	
 		},
 		filterCellByOffice: function () {
@@ -141,9 +142,11 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			}
 		},
 		_onListItemPress3: function(oEvent) {
-
+			var cellModel = oEvent.getParameter("listItem").oBindingContexts.cellsModel;
+			var selectedIndex = cellModel.sPath.split("/")[2];
+			var selectedCellId = cellModel.oModel.oData.cells[selectedIndex].key;
+			sap.ui.getCore().AppContext.celluleId = selectedCellId;
 			var oBindingContext = oEvent.getParameter("listItem").getBindingContext();
-
 			return new Promise(function(fnResolve) {
 				this.doNavigate("Bureau", oBindingContext, fnResolve, "");
 			}.bind(this)).catch(function(err) {
@@ -233,9 +236,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 
 		},
 		_onObjectListItemPress1: function(oEvent) {
-
 			var oBindingContext = oEvent.getSource().getBindingContext();
-
 			return new Promise(function(fnResolve) {
 
 				this.doNavigate("Bureau", oBindingContext, fnResolve, "");
@@ -325,8 +326,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			this.mBindingOptions = {};
 			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			this.oRouter.getTarget("Accueil").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
-			this.displayOfficeName();
-			this.filterCellByOffice();
 		}
 	});
 }, /* bExport= */ true);

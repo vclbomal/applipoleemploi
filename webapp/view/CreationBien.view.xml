@@ -21,7 +21,7 @@
 								visible="true" displayInline="false">
 								<m:items>
 									<m:Input placeholder="Numéro de série" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false"
-										maxLength="0"/>
+										maxLength="0" id="serial"/>
 									<core:Icon src="sap-icon://camera" size="32px" height="48px" width="48px" visible="true"/>
 								</m:items>
 								<m:layoutData/>
@@ -31,7 +31,7 @@
 							<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Start" renderType="Div"
 								visible="true" displayInline="false">
 								<m:items>
-									<m:Input placeholder="Code-barres" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false"
+									<m:Input placeholder="Code-barres" id="codebarre" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false"
 										maxLength="0"/>
 									<core:Icon src="sap-icon://bar-code" size="32px" height="48px" width="48px" visible="true"/>
 								</m:items>
@@ -39,16 +39,16 @@
 							</m:HBox>
 							<m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
 							<m:Label text="Choix du type de bien :" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
-							<m:ComboBox value="" placeholder="Type de bien" editable="true" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%"
+							<m:ComboBox value="" placeholder="Type de bien" id="typebien" editable="true" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%"
 								items="{/Type}">
 								<m:items>
-									<core:Item text="{TYPE_NAME}" enabled="true" key="{name}"/>
+									<core:Item text="{TYPE_NAME}" enabled="true" key="{TYPE_ID}"/>
 								</m:items>
 							</m:ComboBox>
 							<m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
 							<m:Label text="Choix du nom du bien :" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
 							<m:ComboBox value="" placeholder="Nom du bien" editable="true" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%"
-								items="{/Immo}">
+								items="{/Immo}" id="nom">
 								<m:items>
 									<core:Item text="{IMMO_NAME}" enabled="true" key="{name}"/>
 								</m:items>

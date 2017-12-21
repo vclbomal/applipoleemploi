@@ -1,4 +1,5 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.standard.buildPoleEmploiEpf.controller.Scan" xmlns:m="sap.m" xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.standard.buildPoleEmploiEpf.controller.Scan" xmlns:m="sap.m" 
+xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml">
 	<m:Page showHeader="true" title="Inventaire" showFooter="true" showNavButton="true" navButtonPress="_onPageNavButtonPress1">
 		<m:content>
 			<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
@@ -14,10 +15,34 @@
 								</m:items>
 								<m:layoutData/>
 							</m:HBox>
-							<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Start" renderType="Div"
+							<m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit"/>
+							<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
 								visible="true" displayInline="false">
 								<m:items>
-									<html:video autoplay="autoplay" src="/webapp/resources/black.png" height="150px" width="250px"/>
+									<m:VBox alignItems="Stretch" direction="Column" fitContainer="false" width="auto" height="auto" justifyContent="Start" renderType="Div"
+										visible="true" displayInline="false">
+										<m:items>
+											<m:Label text="Source vidéo :" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
+											<m:Select id="videoSet" items="{videoSelectModel>/arrayName}" change="start">
+										    	<core:ListItem key="{videoSelectModel>value}" text="{videoSelectModel>name}" />
+										    </m:Select>
+										</m:items>
+										<m:layoutData/>
+									</m:VBox>
+								</m:items>
+								<m:layoutData/>
+							</m:HBox>
+							<m:HBox alignItems="Stretch" direction="Row" class="sapUiResponsiveMargin" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+								visible="true" displayInline="false">
+								<m:items>
+									<m:Text id="detection" text="Detection non-activée cliquer sur le bouton en bas à droite pour l'activer." />
+								</m:items>
+								<m:layoutData/>
+							</m:HBox>
+							<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
+								visible="true" displayInline="false">
+								<m:items>
+									<html:video id="videoFrame" autoplay="autoplay" src="/webapp/resources/black.png" height="300px" width="350px"/>
 								</m:items>
 								<m:layoutData/>
 							</m:HBox>
@@ -29,7 +54,7 @@
 										visible="true" displayInline="false">
 										<m:items>
 											<m:Label text="Code-barres :" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
-											<m:Input id="barcodeValue" class="barcode" placeholder="123456789" type="Number" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false"
+											<m:Input id="barcodeValue" class="barcode" placeholder="123456789" type="text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false"
 												maxLength="0"/>
 										</m:items>
 										<m:layoutData/>
@@ -51,7 +76,7 @@
 										visible="true" displayInline="false">
 										<m:items>
 											<m:Label text="Immobilisation :" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
-											<m:Input placeholder="Ordinateur" type="Number" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false"
+											<m:Input id="immoName" placeholder="Immobilisation" type="text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false"
 												maxLength="0"/>
 										</m:items>
 										<m:layoutData/>

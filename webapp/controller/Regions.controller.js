@@ -70,6 +70,9 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 	function filterPositionsByPostCode(position, postalCode, context) {
 		var lat = position.coords.latitude;
 		var long = position.coords.longitude;
+		if(postalCode === "75116"){
+			postalCode = 75016;
+		}
 		$.ajax({
 			url: "/datasappe/applisappe/services/"+
 			"applisappe.xsodata/Batiment?$filter=BATIMENT_VILLE_ID eq " + postalCode,
@@ -238,9 +241,10 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			}
 		},
 		_onListItemPress: function(oEvent) {
-
 			var oBindingContext = oEvent.getParameter("listItem").getBindingContext();
-
+			var sPath = oBindingContext.sPath.substr(1);
+			var selectedRegionId = oBindingContext.oModel.oData[sPath].REGION_ID;
+			sap.ui.getCore().AppContext.regionId = selectedRegionId;
 			return new Promise(function(fnResolve) {
 				this.doNavigate("Villes", oBindingContext, fnResolve, "");
 			}.bind(this)).catch(function(err) {

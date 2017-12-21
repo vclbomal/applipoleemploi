@@ -18,9 +18,13 @@
 							<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Start" renderType="Div"
 								visible="true" displayInline="false">
 								<m:items>
-									<m:Label text="Prévus : 18" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Label text="Prévus : " design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:ToolbarSpacer width="10px"/>
+									<m:ObjectNumber id="expectedLength" number="1" unit="" emphasized="true" state="None"/>
 									<m:ToolbarSpacer width="50px"/>
-									<m:Label text="Constatés : 19" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:Label text="Constatés :" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
+									<m:ToolbarSpacer width="10px"/>
+									<m:ObjectNumber id="inventoryLength" number="1" unit="" emphasized="true" state="None"/>
 								</m:items>
 								<m:layoutData/>
 							</m:HBox>
@@ -28,13 +32,10 @@
 								visible="true" displayInline="false">
 								<m:items>
 									<core:Icon src="sap-icon://synchronize" size="32px" height="48px" width="48px" visible="true"/>
-									<m:ObjectNumber number="1" unit="" emphasized="true" state="None"/>
+									<m:ObjectNumber id="relocalised" number="1" unit="" emphasized="true" state="None"/>
 									<m:ToolbarSpacer width="10px"/>
 									<core:Icon src="sap-icon://sys-add" size="32px" height="48px" width="48px" visible="true"/>
-									<m:ObjectNumber number="1" unit="" emphasized="true" state="None"/>
-									<m:ToolbarSpacer width="10px"/>
-									<core:Icon src="sap-icon://bar-code" size="48px" height="48px" width="48px" visible="true"/>
-									<m:ObjectNumber number="+ 3" unit="" emphasized="true" state="None"/>
+									<m:ObjectNumber id="added" number="1" unit="" emphasized="true" state="None"/>
 								</m:items>
 								<m:layoutData/>
 							</m:HBox>
@@ -72,9 +73,9 @@
 				<m:layoutData/>
 			</m:HBox>
 			<m:List
-				id="sap_Responsive_Page_0-content-sap_m_List-1511558751838-3ff835262cd8d1b30edd966c1_S1-2217dfa30e3813430edd96af2_S2-34b26c6ead123d140ee0994b6_S6-884194e29b005eff0ee0a3257_S7"
+				id="immoList"
 				mode="SingleSelectMaster" headerText="" footerText="" backgroundDesign="Solid" showSeparators="All" growing="true" growingThreshold="20"
-				growingScrollToLoad="true" itemPress="_onListItemPress4" items="{/Famille}">
+				growingScrollToLoad="true" itemPress="_onListItemPress4" items="{immoModel>/immos}">
 				<m:infoToolbar>
 					<m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
 						<m:content>
@@ -90,7 +91,7 @@
 					</m:Toolbar>
 				</m:headerToolbar>
 				<m:items>
-					<m:ObjectListItem intro="" title="{FAMILLE_NAME}" icon="{image}"
+					<m:ObjectListItem intro="" title="{immoModel>name}" icon="{image}"
 						number="{path: 'number', type: 'sap.ui.model.type.Float', formatOptions: { maxFractionDigits: 2 }}" numberUnit="" numberState="None"
 						type="Active" selected="true" showMarkers="false">
 						<m:attributes/>

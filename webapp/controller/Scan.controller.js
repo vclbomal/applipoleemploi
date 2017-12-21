@@ -5,27 +5,13 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 ], function(BaseController, MessageBox, Utilities, History) {
 	"use strict";
 
-	function loadCameraView() {
-		function hasGetUserMedia() {
-			return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
-				navigator.mozGetUserMedia || navigator.msGetUserMedia);
-		}
-		if (hasGetUserMedia()) {
-			var video = $("video");
-			navigator.getUserMedia({
-				video: true,
-				audio: false
-			}, function(localMediaStream) {
-				video["0"].src = window.URL.createObjectURL(localMediaStream);
-			}, function() {
-				MessageBox.error("Merci de verifier vos autorisations");
-			});
-		} else {
-			MessageBox.error("La fonctionnalité n'est pas supportée par votre navigateur");
-			video.src = "somevideo.webm"; // fallback.
-		}
+	function getStream(stream) {
+		window.stream = stream; // make stream available to console
+		$("video")[0].srcObject = stream;
+		// Refresh button list in case labels have become available
+		return navigator.mediaDevices.enumerateDevices();
 	}
-
+	var scannedImmo = {};
 	return BaseController.extend("com.sap.build.standard.buildPoleEmploiEpf.controller.Scan", {
 		handleRouteMatched: function(oEvent) {
 
@@ -42,7 +28,63 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 					this.getView().bindObject(oPath);
 				}
 			}
+			this.pageReset();
+		},
+		pageReset: function(){
+			this.getView().byId("barcodeValue").removeStyleClass("inputOk").setValue("");
+			this.getView().byId("immoName").setValue("");
+			this.getView().byId("detection").setText("Detection non-activée cliquer sur le bouton en bas à droite pour l'activer.");
+		},
+		start: function() {
+			var that = this;
+			if (window.stream) {
+				window.stream.getTracks().forEach(function(track) {
+					track.stop();
+				});
+			}
+			var videoSource = that.getView().byId("videoSet").getSelectedKey();
+			var constraints;
+			if (!videoSource) {
+				constraints = {
+					video: true,
+					audio: false
+				};
+			} else {
+				constraints = {
+					video: {
+						deviceId: videoSource ? {
+							exact: videoSource
+						} : undefined
+					}
+				};
+			}
 
+			navigator.getUserMedia(constraints, getStream, function() {
+				MessageBox.error("Merci de verifier vos autorisations");
+			});
+		},
+		getDevices: function(deviceInfos, context) {
+			var videoSelect = context.getView().byId("videoSet");
+			var model = new sap.ui.model.json.JSONModel();
+			var arrayName = [];
+			var camCount = 0;
+			for (var i = 0; i !== deviceInfos.length; ++i) {
+				var deviceInfo = deviceInfos[i];
+				var option = document.createElement("option");
+				option.value = deviceInfo.deviceId;
+				if (deviceInfo.kind === "videoinput") {
+					camCount ++;
+					option.text = deviceInfo.label || "Camera " + (camCount);
+					arrayName.push({
+						name: deviceInfo.label || "Camera " + (camCount),
+						value: deviceInfo.deviceId
+					});
+				}
+			}
+			model.setData({
+				arrayName: arrayName
+			});
+			videoSelect.setModel(model, "videoSelectModel");
 		},
 		_onPageNavButtonPress1: function(oEvent) {
 
@@ -127,11 +169,19 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 					MessageBox.error(err);
 				}
 			});
-
 		},
 		_onScanButtonPress: function() {
 			var that = this;
-			loadCameraView();
+			//loadCameraView(that);
+			if(!jQuery.isEmptyObject(scannedImmo)){
+				sap.ui.getCore().AppContext.currentCellInventory.listImmo.push(scannedImmo);
+				scannedImmo = {};
+			}
+			var input = that.getView().byId("barcodeValue").removeStyleClass("inputOk");
+			var detectionIndicator = that.getView().byId("detection");
+			detectionIndicator.setText("Detection en cours ...");
+			input.setValue("");
+			that.getView().byId("immoName").setValue("");
 			var liveStreamConfig = { //See Quagga documentation for more details
 				inputStream: {
 					type: "LiveStream",
@@ -179,11 +229,23 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 				decoder: {
 					readers: ["ean_reader"
 						//{"format":"ean_reader","config":{}}
+						/*Liste des formats : 
+							code_128_reader
+							ean_reader (ean 13)
+							ean_8_reader
+							code_39_reader
+							code_39_vin_reader
+							codabar_reader
+							upc_reader
+							upc_e_reader
+							i2of5_reader
+							2of5_reader
+							code_93_reader*/
 					]
 				},
 				locate: true
 			};
-
+			
 			// Start the live stream scanner
 			Quagga.init(liveStreamConfig, function(err) {
 				if (err) {
@@ -196,21 +258,96 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 
 			// Executes when barcode recognised
 			Quagga.onDetected(function(result) {
-				if (result.codeResult.code) {
-					jQuery.sap.log.debug("code detected " + result.codeResult.code);
-					var input = $(".barcode input");
-					input["0"].value = result.codeResult.code;
+				var code = result.codeResult.code.toString();
+				if (code) {
+					jQuery.sap.log.debug("code detected " + code);
+					input.setValue(code);
 					Quagga.stop();
-					that.getView().byId("barcodeValue").addStyleClass("inputOk");
+					input.addStyleClass("inputOk");
+					detectionIndicator.setText("Code barre detecté, cliquer en bas à droite pour relancer la detection.");
+					that.codeBarreCheck(code);
 				}
 			});
 		},
+		codeBarreCheck: function(code){
+			var that = this;
+			$.ajax({
+			  type: "GET",
+			  url: "/datasappe/applisappe/services/applisappe.xsodata/Immo?$filter=IMMO_CODEBARRES eq '"
+			  + code + "'",
+			  cache: false,
+			  xhrFields: {withCredentials: true},
+			  dataType: "json",
+			  error : function(msg, textStatus,error) {
+			  	MessageBox.error("Erreur : " + error.message);
+			    console.log(textStatus);
+			  },
+			  success : function(data) {
+				var result = data.d.results;
+				that.barcodeAjaxSuccess(result, code);
+			  }
+			});
+		},
+		barcodeAjaxSuccess: function(result, code){
+			var that = this;
+			if(result.length === 1){
+		  		that.immoParse(result);
+		  	}
+		  	else if (result.length > 1){
+		  		MessageBox.error("Plusieures immobilisations sont associées à ce code-barre. Veuillez le renouveler.");
+		  	}
+		  	else{
+		  		that.createImmo(code);	
+		  	}
+		},
+		createImmo: function(barcode){
+			var that = this;
+			sap.ui.getCore().AppContext.immoBarCode = barcode;
+			MessageBox.confirm("Le code-barre scanné n'est pas reconnu. Le code-barre est : " + barcode + 
+			"\nVoulez-vous créer un nouveau bien associé à ce code-barre", function(input){
+				that.newBarcodeBoxCallBack(input, that);
+			}, "Code-barre non reconnu");
+			
+		},
+		newBarcodeBoxCallBack: function(input, context){
+			if (input === "OK"){
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(context);
+				oRouter.navTo("CreationBien", {});
+			}
+			else{
+				context.pageReset();
+			}
+		},
+		immoParse: function(data){
+			var that = this;
+			var immo = {
+				key: data[0].IMMO_ID,
+				name: data[0].IMMO_NAME,
+				serial: data[0].IMMO_NUMSERIE,
+				state: data[0].IMMO_ETAT,
+				date: new Date(),
+				barcode: data[0].IMMO_CODEBARRES,
+				cell: data[0].IMMO_CELLULE_ID,
+				type: data[0].IMMO_TYPE_ID
+			};
+			if(immo.cell !== sap.ui.getCore().AppContext.celluleId){
+				immo.relocalise = true;
+				immo.newCell = sap.ui.getCore().AppContext.celluleId;
+			}
+			that.getView().byId("immoName").setValue(immo.name);
+			scannedImmo = immo;
+		},
 		onInit: function() {
-
+			var that = this;
+			navigator.mediaDevices.enumerateDevices().then(function(deviceInfos) {
+				return that.getDevices(deviceInfos, that);
+			}).catch(function(error) {
+				MessageBox.error(error.message);
+			});
 			this.mBindingOptions = {};
 			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			this.oRouter.getTarget("Scan").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
-
+			that.start();
 		}
 	});
 }, /* bExport= */ true);

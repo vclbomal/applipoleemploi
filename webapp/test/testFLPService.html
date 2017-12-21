@@ -39,8 +39,29 @@
 			sap.ui.getCore().AppContext.villeId = 0;
 			sap.ui.getCore().AppContext.officeId = 0;
 			sap.ui.getCore().AppContext.celluleId = 0;
-			sap.ui.getCore().AppContext.immoId = 0;
+			sap.ui.getCore().AppContext.immoBarCode = 0;
+			sap.ui.getCore().AppContext.listImmo = [];
+			sap.ui.getCore().AppContext.inventory = [];
+			sap.ui.getCore().AppContext.currentCellInventory = {};
 			
+			sap.ui.getCore().AppContext.getCurrentCellInventory = function (){
+				var currentCellId = sap.ui.getCore().AppContext.celluleId;
+				var inventory = sap.ui.getCore().AppContext.inventory;
+				var currentCellInventory; 
+				for (var i = 0; i < inventory.length; i++){
+					if (currentCellId === inventory[i].cellId){
+						currentCellInventory = inventory[i];
+					}
+				}
+				if(!currentCellInventory){
+					currentCellInventory = {
+						cellId: currentCellId,
+						listImmo: []
+					};
+					inventory.push(currentCellInventory);
+				}
+				sap.ui.getCore().AppContext.currentCellInventory = currentCellInventory;
+			};
 		</script>
 		
 		<style>

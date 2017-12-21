@@ -1,8 +1,10 @@
 sap.ui.define(["sap/ui/core/mvc/Controller",
 	"sap/m/MessageBox",
 	"./utilities",
-	"sap/ui/core/routing/History"
-], function(BaseController, MessageBox, Utilities, History) {
+	"sap/ui/core/routing/History",
+	"sap/ui/model/odata/ODataModel",
+	"sap/ui/model/json/JSONModel"
+], function(BaseController, MessageBox, Utilities, History, odata, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("com.sap.build.standard.buildPoleEmploiEpf.controller.Villes", {
@@ -21,7 +23,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 					this.getView().bindObject(oPath);
 				}
 			}
-
+			this.loadCities();
 		},
 		_onPageNavButtonPress2: function(oEvent) {
 
@@ -93,7 +95,11 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			}
 		},
 		_onListItemPress1: function(oEvent) {
-
+			var cityModel = oEvent.getParameter("listItem").oBindingContexts.cityModel;
+			var selectedIndex = cityModel.sPath.split("/")[2];
+			var selectedCityId = cityModel.oModel.oData.cities[selectedIndex].key;
+			sap.ui.getCore().AppContext.villeId = selectedCityId;
+			
 			var oBindingContext = oEvent.getParameter("listItem").getBindingContext();
 
 			return new Promise(function(fnResolve) {
@@ -176,12 +182,43 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			};
 
 		},
+		displayCities: function(oData){
+			var that = this;
+        	var model = new sap.ui.model.json.JSONModel();
+        	var list = that.getView().byId("cityList");
+        	var cities = [];
+        	for(var i = 0; i < oData.length; i++){
+        		cities.push({
+        			key: oData[i].VILLE_ID,
+        			name: oData[i].VILLE_NAME,
+        			code: oData[i].VILLE_CP
+        		});
+        	}
+        	model.setData({cities: cities});
+        	list.setModel(model, "cityModel");
+		},
+		loadCities: function(){
+			var that = this;
+			$.ajax({
+			  type: "GET",
+			  url: "/datasappe/applisappe/services/applisappe.xsodata/Ville?$filter=VILLE_REGION_ID eq "
+			  + sap.ui.getCore().AppContext.regionId,
+			  cache: false,
+			  xhrFields: {withCredentials: true},
+			  dataType: "json",
+			  error : function(msg, textStatus,ree) {
+			  	alert("erreur");
+			    console.log(textStatus);
+			  },
+			  success : function(data) {
+			      that.displayCities(data.d.results);
+			  }
+			});
+		},
 		onInit: function() {
-
 			this.mBindingOptions = {};
 			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			this.oRouter.getTarget("Villes").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
-
 		}
 	});
 }, /* bExport= */ true);

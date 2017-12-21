@@ -9,17 +9,7 @@
 						<m:items>
 							<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
 								visible="true" displayInline="false">
-								<m:items>
-									<m:Title text="Localisation" titleStyle="Auto" width="auto" textAlign="Begin" visible="true"/>
-								</m:items>
-								<m:layoutData/>
-							</m:HBox>
-							<m:HBox alignItems="Stretch" direction="Row" fitContainer="false" width="auto" height="auto" justifyContent="Center" renderType="Div"
-								visible="true" displayInline="false">
-								<m:items>
-									<m:Link text="Agence Montreuil-sous-Bois" textAlign="Begin" width="auto" target="_blank" wrapping="false" enabled="true" visible="true"
-										emphasized="false" subtle="false"/>
-								</m:items>
+								
 								<m:layoutData/>
 							</m:HBox>
 						</m:items>
@@ -28,9 +18,9 @@
 				</m:items>
 				<m:layoutData/>
 			</m:HBox>
-			<m:List id="sap_Responsive_Page_0-content-sap_m_List-1511558751838-3ff835262cd8d1b30edd966c1_S1-2217dfa30e3813430edd96af2_S2"
+			<m:List id="officeList"
 				mode="SingleSelectMaster" headerText="Header" footerText="" backgroundDesign="Solid" showSeparators="All" growing="true"
-				growingThreshold="20" growingScrollToLoad="true" itemPress="_onListItemPress2" items="{/Batiment}">
+				growingThreshold="20" growingScrollToLoad="true" itemPress="_onListItemPress2" items="{officeModel>/offices}">
 				<m:infoToolbar>
 					<m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
 						<m:content>
@@ -47,7 +37,7 @@
 					</m:Toolbar>
 				</m:headerToolbar>
 				<m:items>
-					<m:ObjectListItem intro="" title="{BATIMENT_NAME}" number="" numberUnit="" numberState="None" type="Active" selected="true" showMarkers="false">
+					<m:ObjectListItem intro="{officeModel>adresse}" title="{officeModel>name}" number="" numberUnit="" numberState="None" type="Active" selected="true" showMarkers="false">
 						<m:attributes/>
 						<m:firstStatus/>
 						<m:secondStatus/>

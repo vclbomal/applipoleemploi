@@ -21,7 +21,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 					this.getView().bindObject(oPath);
 				}
 			}
-
+			this.loadOffices();
 		},
 		_onPageNavButtonPress3: function(oEvent) {
 
@@ -93,9 +93,12 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			}
 		},
 		_onListItemPress2: function(oEvent) {
+			var officeModel = oEvent.getParameter("listItem").oBindingContexts.officeModel;
+			var selectedIndex = officeModel.sPath.split("/")[2];
+			var selectedOfficeId = officeModel.oModel.oData.offices[selectedIndex].key;
+			sap.ui.getCore().AppContext.officeId = selectedOfficeId;
 
 			var oBindingContext = oEvent.getParameter("listItem").getBindingContext();
-
 			return new Promise(function(fnResolve) {
 				this.doNavigate("Accueil", oBindingContext, fnResolve, "");
 			}.bind(this)).catch(function(err) {
@@ -176,12 +179,44 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			};
 
 		},
+		displayOffices: function(oData){
+			var that = this;
+        	var model = new sap.ui.model.json.JSONModel();
+        	var list = that.getView().byId("officeList");
+        	var offices = [];
+        	for(var i = 0; i < oData.length; i++){
+        		offices.push({
+        			key: oData[i].BATIMENT_ID,
+        			name: oData[i].BATIMENT_NAME,
+        			adresse: oData[i].BATIMENT_ADRESSE
+        		});
+        	}
+        	model.setData({offices: offices});
+        	list.setModel(model, "officeModel");
+		},
+		loadOffices: function(){
+			var that = this;
+			$.ajax({
+			  type: "GET",
+			  url: "/datasappe/applisappe/services/applisappe.xsodata/Batiment?$filter=BATIMENT_VILLE_ID eq "
+			  + sap.ui.getCore().AppContext.villeId,
+			  cache: false,
+			  xhrFields: {withCredentials: true},
+			  dataType: "json",
+			  error : function(msg, textStatus,ree) {
+			  	alert("erreur");
+			    console.log(textStatus);
+			  },
+			  success : function(data) {
+			      that.displayOffices(data.d.results);
+			      debugger;
+			  }
+			});
+		},
 		onInit: function() {
-
 			this.mBindingOptions = {};
 			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			this.oRouter.getTarget("Batiments").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
-
 		}
 	});
 }, /* bExport= */ true);

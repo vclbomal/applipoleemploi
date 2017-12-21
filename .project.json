@@ -59,7 +59,7 @@
   "hcpdeploy": {
     "account": "p1942913203trial",
     "name": "applipoleemploi",
-    "lastVersionWeTriedToDeploy": "1.0.7"
+    "lastVersionWeTriedToDeploy": "1.0.14"
   },
   "mockpreview": {
     "mockUri": "/datasappe/applisappe/services/applisappe.xsodata",

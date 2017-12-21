@@ -21,7 +21,9 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 					this.getView().bindObject(oPath);
 				}
 			}
-
+			if (sap.ui.getCore().AppContext.immoBarCode){
+				this.getView().byId("codebarre").setValue(sap.ui.getCore().AppContext.immoBarCode);
+			}
 		},
 		_onPageNavButtonPress: function() {
 
@@ -48,9 +50,9 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 
 		},
 		_onButtonPress: function(oEvent) {
-
+			var that = this;
 			var oBindingContext = oEvent.getSource().getBindingContext();
-
+			sap.ui.getCore().AppContext.currentCellInventory.listImmo.push(that.parseUserInput());
 			return new Promise(function(fnResolve) {
 
 				this.doNavigate("Bureau", oBindingContext, fnResolve, "");
@@ -59,7 +61,22 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 					MessageBox.error(err.message);
 				}
 			});
-
+		},
+		parseUserInput: function(){
+			var serialInput = this.getView().byId("serial").getValue();
+			var barcodeInput = this.getView().byId("codebarre").getValue();
+			var typeInput = this.getView().byId("typebien").getSelectedKey();
+			var nameInput = this.getView().byId("nom").getValue();
+			var immo = {
+				name: nameInput,
+				type: typeInput,
+				barcode: barcodeInput,
+				serial: serialInput,
+				state: 0,
+				newBarcode: true,
+				cell: sap.ui.getCore().AppContext.celluleId
+			};
+			return immo;
 		},
 		doNavigate: function(sRouteName, oBindingContext, fnPromiseResolve, sViaRelation) {
 
